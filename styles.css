@@ -1,0 +1,23 @@
+html, body {
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    background-color: #ddd;
+    min-width: 860px;
+}
+h1, h2, h4 ,h5 ,h6, p, li, span {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #222;
+}
+
+div {
+    padding: 0;
+    margin: 0;
+}
+
+.grid-container {
+    margin-left: 5em;
+    width: 430px;
+    display: inline-block;
+}
+
