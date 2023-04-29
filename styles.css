@@ -1,13 +1,19 @@
+:root {
+    --dark-blue-color: #088395;
+    --blue-color: #05BFDB;
+    --light-blue-color: #00FFCA;
+}
+
 html, body {
 	width: 100%;
 	padding: 0;
 	margin: 0;
 	background-color: #ddd;
-	min-width: 860px;
 }
 h1, h2, h3, h4, h5, h6, p, li, span {
 	font-family: 'Open Sans', Helvetica, Arial, sans-serif;
 	color: #222222;
+    margin: 1em 0 1.5em;
 }
 
 div {
@@ -18,9 +24,7 @@ div {
 .container {
     text-align: center;
     display: inline-block;
-    margin: 0 auto 3em auto;
     width: auto;
-    margin: auto;
     position: absolute;
     top: 0;
     right: 0;
@@ -30,46 +34,53 @@ div {
 
 .game-container {
     position: relative;
-    
 }
 
 .grid-container {
-    width: 600px;
     display: inline-block;
 }
 
 .grid {
     position: relative;
     vertical-align: top;
-    padding: 5px;
-    background-color: #088395;
-    width: 560px;
-    height: 560px;
-    border-radius: 10px;
-}
-
-.grid-container:last-child {
-    margin-left: 10px;
+    padding: .3em;
+    background-color: var(--dark-blue-color);
+    width: 35em;
+    height: 35em;
+    border-radius: .7em;
 }
 
 .grid-cell {
-    height: 50px;
-    width: 50px;
+    height: 3.1em;
+    width: 3.14em;
     display: inline-block;
-    background-color: #05BFDB;
+    background-color: var(--blue-color);
     margin: 1px;
-    border-radius: 10px;
+    border-radius: .7em;
 }
 
     .grid-cell:hover {
-        cursor: pointer; /* Fallback for IE */
-        background-color: #00FFCA;
-    }
-    .human-player .grid-cell:hover {
-        background-color: #99C2E1;
+        cursor: pointer; 
+        background-color: var(--light-blue-color);
     }
     .cpu-player .grid-cell:hover, .cpu-player:hover {
         cursor: url('images/Target.png') 16 16, crosshair;
     }
 
+@media (max-width: 36em) {
+    .grid {
+        width: 400px;
+        height: 400px;
+        padding: px;
+    }
+
+    .grid-cell {
+        position: relative;
+        width: 30px;
+        height: 30px;
+        padding: 2px;
+        margin: .5px;        
+    }
+
+}
 
