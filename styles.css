@@ -1,13 +1,19 @@
-html, body {
-    width: 100%;
-    padding: 0;
-    margin: 0;
-    background-color: #ddd;
-    min-width: 860px;
+:root {
+    --dark-blue-color: #088395;
+    --blue-color: #05BFDB;
+    --light-blue-color: #00FFCA;
 }
-h1, h2, h4 ,h5 ,h6, p, li, span {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    color: #222;
+
+html, body {
+	width: 100%;
+	padding: 0;
+	margin: 0;
+	background-color: #ddd;
+}
+h1, h2, h3, h4, h5, h6, p, li, span {
+	font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+	color: #222222;
+    margin: 1em 0 1.5em;
 }
 
 div {
@@ -15,9 +21,65 @@ div {
     margin: 0;
 }
 
+.container {
+    text-align: center;
+    display: inline-block;
+    width: auto;
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+}
+
+.game-container {
+    position: relative;
+}
+
 .grid-container {
-    margin-left: 5em;
-    width: 430px;
     display: inline-block;
 }
 
+.grid {
+    position: relative;
+    vertical-align: top;
+    padding: .3em;
+    background-color: var(--dark-blue-color);
+    width: 35em;
+    height: 35em;
+    border-radius: .7em;
+}
+
+.grid-cell {
+    height: 3.1em;
+    width: 3.14em;
+    display: inline-block;
+    background-color: var(--blue-color);
+    margin: 1px;
+    border-radius: .7em;
+}
+
+    .grid-cell:hover {
+        cursor: pointer; 
+        background-color: var(--light-blue-color);
+    }
+    .cpu-player .grid-cell:hover, .cpu-player:hover {
+        cursor: url('images/Target.png') 16 16, crosshair;
+    }
+
+@media (max-width: 36em) {
+    .grid {
+        width: 400px;
+        height: 400px;
+        padding: px;
+    }
+
+    .grid-cell {
+        position: relative;
+        width: 30px;
+        height: 30px;
+        padding: 2px;
+        margin: .5px;        
+    }
+
+}
