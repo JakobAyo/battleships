@@ -1,0 +1,75 @@
+html, body {
+	width: 100%;
+	padding: 0;
+	margin: 0;
+	background-color: #ddd;
+	min-width: 860px;
+}
+h1, h2, h3, h4, h5, h6, p, li, span {
+	font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+	color: #222222;
+}
+
+div {
+    padding: 0;
+    margin: 0;
+}
+
+.container {
+    text-align: center;
+    display: inline-block;
+    margin: 0 auto 3em auto;
+    width: auto;
+    margin: auto;
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+}
+
+.game-container {
+    position: relative;
+    
+}
+
+.grid-container {
+    width: 600px;
+    display: inline-block;
+}
+
+.grid {
+    position: relative;
+    vertical-align: top;
+    padding: 5px;
+    background-color: #088395;
+    width: 560px;
+    height: 560px;
+    border-radius: 10px;
+}
+
+.grid-container:last-child {
+    margin-left: 10px;
+}
+
+.grid-cell {
+    height: 50px;
+    width: 50px;
+    display: inline-block;
+    background-color: #05BFDB;
+    margin: 1px;
+    border-radius: 10px;
+}
+
+    .grid-cell:hover {
+        cursor: pointer; /* Fallback for IE */
+        background-color: #00FFCA;
+    }
+    .human-player .grid-cell:hover {
+        background-color: #99C2E1;
+    }
+    .cpu-player .grid-cell:hover, .cpu-player:hover {
+        cursor: url('images/Target.png') 16 16, crosshair;
+    }
+
+
