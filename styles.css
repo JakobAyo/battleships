@@ -64,7 +64,7 @@ div {
         background-color: var(--light-blue-color);
     }
     .cpu-player .grid-cell:hover, .cpu-player:hover {
-        cursor: url('images/Target.png') 16 16, crosshair;
+        cursor: url('images/target.png') 16 16, crosshair;
     }
 
 @media (max-width: 36em) {
