@@ -2,6 +2,7 @@
     --dark-blue-color: #088395;
     --blue-color: #05BFDB;
     --light-blue-color: #00FFCA;
+    --red-color: #DC143C;
 }
 
 html, body {
@@ -67,6 +68,10 @@ div {
         cursor: url('images/target.png') 16 16, crosshair;
     }
 
+    .grid-cell:active {
+        background-color: var(--red-color);
+    }
+
 @media (max-width: 36em) {
     .grid {
         width: 400px;
@@ -83,3 +88,4 @@ div {
     }
 
 }
+
