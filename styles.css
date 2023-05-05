@@ -34,6 +34,8 @@ h2 {
     text-align: center;
     font-size: 2rem;
     top: 2rem;
+    margin-bottom: 6rem;
+
 }
 
 
@@ -83,8 +85,8 @@ h2 {
     grid-template-rows: repeat(10 ,auto);
     grid-template-columns: repeat(10, auto);
 
-    width: 30rem;
-    height: 30rem;
+    width: 40rem;
+    height: 40rem;
 }
 
     .grid.main-player {
@@ -108,12 +110,63 @@ h2 {
     margin: 0.125rem;
     border-radius: 0.9rem;
     filter: drop-shadow(0 .25rem .25rem rgba(0, 0, 0, 0.4));
-    width: 2.7em;
-    height: 2.7em;
+    width: 3.5em;
+    height: 3.5em;
 }
 
-    .grid-cell:hover {
+    .cpu-player .grid-cell:hover {
+        background-color: var(--light-cell-color);
+    }
+
+    .cpu-player .grid-cell:hover, .cpu-player:hover {
         cursor: url('images/target.png') 16 16, crosshair;
     }
+
+@media (max-width: 1330px) {
+    html,body {
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 1000px) {
+    html, body {
+        font-size: 10px;
+    }
+    
+    h1 {
+        margin-bottom: 0;
+    }
+
+    h2 {
+        margin-bottom: 1rem;
+    }
+
+    .game-container {
+        /* background-color: red; */
+        height: 90vh;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .grid-container{
+        /* background-color: green; */
+        height: 40vh;
+    }
+
+    .grid {
+        width: 40rem;
+        height: 40rem;
+    }
+
+        .grid-cell {
+            height: 3.5rem;
+            width: 3.5rem;
+        }
+}
+
+
+
+
 
 
