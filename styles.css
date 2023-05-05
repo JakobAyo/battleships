@@ -95,13 +95,6 @@ h2 {
         background-color: var(--dark-grid-color);
     }
 
-.grid-cell {
-    margin: 0.125rem;
-    border-radius: 0.9rem;
-    filter: drop-shadow(0 .25rem .25rem rgba(0, 0, 0, 0.4));
-    width: 2.7em;
-    height: 2.7em;
-}
     .grid.cpu-player > * {
         background-color: var(--dark-cell-color);
     }
@@ -109,4 +102,18 @@ h2 {
     .grid.main-player > * {
         background-color: var(--light-cell-color);
     }
+
+
+.grid-cell {
+    margin: 0.125rem;
+    border-radius: 0.9rem;
+    filter: drop-shadow(0 .25rem .25rem rgba(0, 0, 0, 0.4));
+    width: 2.7em;
+    height: 2.7em;
+}
+
+    .grid-cell:hover {
+        cursor: url('images/target.png') 16 16, crosshair;
+    }
+
 
