@@ -33,16 +33,14 @@ h2 {
     color: var(--dark-blue-color);
     text-align: center;
     font-size: 2rem;
-    top: 2rem;
-    margin-bottom: 6rem;
+    top: 5rem;
+    
 
 }
 
-
-
 .game-container {
     /* background-color: red; */
-    height: 40rem;
+    height: 80rem;
     width: 100%;
     display: flex;
     justify-content: center;
@@ -52,6 +50,7 @@ h2 {
 .grid-container {
     /* background-color: green; */
     margin: 1rem;
+    height: 60rem;
     width: 100%;
 }
 
@@ -75,7 +74,7 @@ h2 {
     position: relative;
     top: 50%;
     left: 50%;
-    -webkit-transform: translate(-50%,-50%);
+    transform: translate(-50%,-50%);
 
     border-radius: 1rem;
     padding: .2rem;
@@ -116,11 +115,16 @@ h2 {
 
     .cpu-player .grid-cell:hover {
         background-color: var(--light-cell-color);
+        transform: scale(1.15);
     }
 
     .cpu-player .grid-cell:hover, .cpu-player:hover {
-        cursor: url('images/target.png') 16 16, crosshair;
+        cursor: url('images/target1.png') 24 24, crosshair;
+        
     }
+
+/* Animations */
+
 
 @media (max-width: 1330px) {
     html,body {
