@@ -14,7 +14,7 @@
 html, body {
 	width: 100%;
 	background-color: #ddd;
-    font-size: 16px;
+    font-size: 14px;
 }
 h1{
 	font-family: 'Raleways', sans-serif;
@@ -108,6 +108,7 @@ h2 {
     justify-content: space-between;
     flex-wrap: wrap;
     width: 70rem;
+    margin-top: 2rem;
     /* background-color: blue; */
 }
     .ships > div {
@@ -117,6 +118,10 @@ h2 {
     .ships > div img {
         width: 100%;
         height: 100%;
+    }
+
+    .dragging {
+        background-color: red;
     }
 
     .destroyer {
@@ -151,6 +156,7 @@ h2 {
     }
 
 
+
 /* Animations */
 
 
@@ -165,25 +171,11 @@ h2 {
         font-size: 10px;
     }
     
-    h1 {
-        margin-bottom: 0;
-    }
-
-    h2 {
-        margin-bottom: 1rem;
-    }
-
     .game-container {
         /* background-color: red; */
-        height: 90vh;
         display: flex;
-        justify-content: center;
+        justify-content: space-around;
         flex-wrap: wrap;
-    }
-
-    .grid-container{
-        /* background-color: green; */
-        height: 40vh;
     }
 
     .grid {
@@ -195,6 +187,55 @@ h2 {
             height: 3.5rem;
             width: 3.5rem;
         }
+
+    .ships {
+        margin-top: 4rem;
+    }
+}
+
+@media (max-width: 810px) {
+    html, body {
+        font-size: 8px;
+    } 
+}
+
+@media (max-width: 646px) {
+    .game-container {
+        display: -webkit-box;
+        display: -moz-box;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -moz-box-orient: vertical;
+        -webkit-flex-direction: column;
+        -ms-flex-direction: column;
+        flex-direction: column;
+    }
+
+    .grid-container.main-player {
+        -webkit-box-ordinal-group: 2;
+        -moz-box-ordinal-group: 2;
+        -ms-flex-order: 2;
+        -webkit-order: 2;
+        order: 2;
+    }
+
+    .grid-container.cpu-player {
+        -webkit-box-ordinal-group: 1;
+        -moz-box-ordinal-group: 1;
+        -ms-flex-order: 1;
+        -webkit-order: 1;
+        order: 1;
+    }
+    .ships {
+        -webkit-box-ordinal-group: 3;
+        -moz-box-ordinal-group: 3;
+        -ms-flex-order: 3;
+        -webkit-order: 3;
+        order: 3;
+        justify-content: center;
+    }
 }
 
 
