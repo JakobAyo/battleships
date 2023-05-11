@@ -9,12 +9,13 @@
 * {
     margin: 0;
     padding: 0;
+    /* outline: black dashed; */
 }
 
 html, body {
 	width: 100%;
 	background-color: #ddd;
-    font-size: 14px;
+    font-size: 12px;
 }
 h1{
 	font-family: 'Raleways', sans-serif;
@@ -92,6 +93,10 @@ h2 {
     height: 3.5em;
 }
 
+.grid-cell.hidden{
+    visibility: hidden;
+}
+
     .cpu-player .grid-cell:hover {
         background-color: var(--light-cell-color);
         transform: scale(1.15);
@@ -102,12 +107,13 @@ h2 {
         
     }
 
+    /* Ship properties */
 .ships {
     position: relative;
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
-    width: 70rem;
+    width: 79rem;
     margin-top: 2rem;
     /* background-color: blue; */
 }
@@ -120,18 +126,26 @@ h2 {
         height: 100%;
     }
 
-    .dragging {
-        background-color: red;
+    .ship-cell{
+        display: inline-block;
+        outline: red dashed;
+        width: 3.5rem;
+        height: 3.5rem;
     }
+
 
     .destroyer {
         /* background-color: brown; */
+        background-image: url(images/destroyer.png);
+        background-size: 100%;
         height: 3.5rem;
         width: 7.25rem;
     }
 
     .submarine {
         /* background-color: yellow; */
+        background-image: url(images/submarine.png);
+        background-size: 100%;
         width: 11.25rem;
         height: 3.5rem;
     }
@@ -139,21 +153,41 @@ h2 {
 
     .cruiser {
         /* background-color: aqua; */
+        background-image: url(images/cruiser.png);
+        background-size: 100%;
         width: 11.25rem;
         height: 3.5rem;
     }
 
     .battleship {
         /* background-color: hotpink; */
+        background-image: url(images/battleship.png);
+        background-size: 100%;
         width: 15.5rem;
         height: 3.5rem;
     }
 
     .carrier {
         /* background-color: palegreen; */
+        background-image: url(images/carrier.png);
+        background-size: 100%;
         width: 19.5rem;
         height: 3.5rem;
     }
+
+button {
+    font-family: 'Raleway', sans-serif;
+    font-size: 2rem;
+    text-shadow: 0.0625rem 0.25rem .375rem rgba(0, 0, 0, 0.44);
+    position: relative;
+    border: none;
+    color: white;
+    border-radius: 2rem;
+    margin: 2.8rem 30vw;
+    height: 6rem;
+    width: 20rem;
+    background-color: var(--light-grid-color);
+}
 
 
 
@@ -187,6 +221,8 @@ h2 {
             height: 3.5rem;
             width: 3.5rem;
         }
+
+
 
     .ships {
         margin-top: 4rem;
