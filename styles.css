@@ -1,10 +1,4 @@
 :root {
-<<<<<<< HEAD
-    --dark-blue-color: #088395;
-    --blue-color: #05BFDB;
-    --light-blue-color: #00FFCA;
-    --red-color: #DC143C;
-=======
     --dark-blue-color: #142850;
     --dark-grid-color: #27496D;
     --dark-cell-color: #3173B0;
@@ -15,8 +9,7 @@
 * {
     margin: 0;
     padding: 0;
-    /* outline: black dashed; */
->>>>>>> figma
+    outline: black dashed 2px;
 }
 
 html, body {
@@ -47,7 +40,7 @@ h2 {
 .game-container {
     /* background-color: red; */
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
     flex-wrap: wrap;
     padding-bottom: 2.5rem;
 }
@@ -110,16 +103,8 @@ h2 {
     }
 
     .cpu-player .grid-cell:hover, .cpu-player:hover {
-<<<<<<< HEAD
-        cursor: url('images/target.png') 16 16, crosshair;
-    }
-
-    .grid-cell:active {
-        background-color: var(--red-color);
-=======
         cursor: url('images/target1.png') 24 24, crosshair;
         
->>>>>>> figma
     }
 
     /* Ship properties */
@@ -128,8 +113,9 @@ h2 {
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
-    width: 79rem;
+    width: 80rem;
     margin-top: 2rem;
+    outline: blue dashed 5px;
     /* background-color: blue; */
 }
     .ships > div {
@@ -143,7 +129,7 @@ h2 {
 
     .ship-cell{
         display: inline-block;
-        outline: red dashed;
+        outline: red dashed 1px;
         width: 3.5rem;
         height: 3.5rem;
     }
@@ -190,6 +176,14 @@ h2 {
         height: 3.5rem;
     }
 
+.buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    width: 20rem;
+    margin-top: 20rem;
+}
+
 button {
     font-family: 'Raleway', sans-serif;
     font-size: 2rem;
@@ -198,7 +192,6 @@ button {
     border: none;
     color: white;
     border-radius: 2rem;
-    margin: 2.8rem 30vw;
     height: 6rem;
     width: 20rem;
     background-color: var(--light-grid-color);
@@ -224,6 +217,7 @@ button {
         /* background-color: red; */
         display: flex;
         justify-content: space-around;
+        align-content: center;
         flex-wrap: wrap;
     }
 
