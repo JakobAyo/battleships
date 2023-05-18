@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-
-=======
 const cpuGridCells = document.querySelectorAll('.cpu-player .grid-cell');
 const mainGridCells = document.querySelectorAll('.main-player .grid-cell');
 const ships = document.querySelectorAll('.ship');
@@ -10,28 +7,6 @@ const submarine = 3
 const cruiser = 3
 const battleship = 4
 const carrier = 5
-
-let draggable 
-let draggableClass 
-let draggableChildren 
-
-
-let shipClass
-
-let destroyerDataX 
-let destroyerDataY 
-
-let submarineDataX
-let submarineDataY
-
-let cruiserDataX
-let cruiserDataY
-
-let battleshipDataX
-let battleshipDataY
-
-let carrierDataX
-let carrierDataY
 
 
 cpuGridCells.forEach(gridCell => {
@@ -76,4 +51,3 @@ mainGridCells.forEach(cell => {
     cell.style.visibility = 'visible'
   })
 })  
->>>>>>> figma
