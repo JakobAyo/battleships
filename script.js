@@ -1,6 +1,8 @@
-const cpuGridCells = document.querySelectorAll('.cpu-player .grid-cell');
-const mainGridCells = document.querySelectorAll('.main-player .grid-cell');
-const ships = document.querySelectorAll('.ship');
+const cpuGridCells = document.querySelectorAll('.cpu-player .grid-cell')
+const mainGridCells = document.querySelectorAll('.main-player .grid-cell')
+const ships = document.querySelectorAll('.ship')
+
+const rotateButton = document.querySelector('#rotate-button')
 
 const destroyer = 2
 const submarine = 3
@@ -9,45 +11,50 @@ const battleship = 4
 const carrier = 5
 
 
+// clicking hides the cell
 cpuGridCells.forEach(gridCell => {
   gridCell.addEventListener('click', (event) => {
-    event.target.style.visibility = 'hidden';
+    event.target.style.visibility = 'hidden'
   })
 })
 
-ships.forEach(draggable => {
-  draggable.addEventListener('dragstart', () => {
-    draggable.classList.add('dragging')
-    draggableClass = document.querySelector('.dragging')
-    draggableClass = draggable.classList[1]
-    draggableChildren = draggable.children.length
 
-    console.log(draggableClass)
-    console.log(draggableChildren)
-  })
-
-  draggable.addEventListener('dragend', () => {
-    draggable.classList.remove('dragging')
-  })
+ships.forEach(ship => {
+  ship.addEventListener('dragstart', handleDragStart)
+  ship.addEventListener('dragend', handleDragEnd)
 })
 
 mainGridCells.forEach(cell => {
-  cell.addEventListener('dragover', e => {
-    e.preventDefault
-    draggable = document.querySelector('.dragging')
-    cell.appendChild(draggable)
-    
-    cell.classList.add('hidden')
-
-    console.log(cell.getAttribute('data-x'))
-    console.log(cell.getAttribute('data-y'))
-    
-
-  })
+  cell.addEventListener('dragenter', handleDragEnter)
+  cell.addEventListener('dragover', handleDragOver)
+  cell.addEventListener('dragleave', handleDragLeave)
+  cell.addEventListener('drop', handleDrop)
 })
 
-mainGridCells.forEach(cell => {
-  cell.addEventListener('dragleave', e => {
-    cell.style.visibility = 'visible'
-  })
-})  
+function handleDragStart(event) {
+  event.currentTarget.classList.add('dragging')
+}
+
+function handleDragEnd(event) {
+  event.currentTarget.classList.remove('dragging')
+}
+
+function handleDragEnter(event) {
+  event.preventDefault()
+}
+
+function handleDragOver(event) {
+  event.preventDefault()
+}
+
+function handleDragLeave(event) {
+  const index = dragEnteredCells.indexOf(event.currentTarget)
+  if(index > -1) {
+    dragEnteredCells.splice(index, 1)
+  }
+}
+
+function handleDrop(event) {
+  event.preventDefault()
+  
+}

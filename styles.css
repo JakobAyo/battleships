@@ -9,7 +9,6 @@
 * {
     margin: 0;
     padding: 0;
-    outline: black dashed 2px;
 }
 
 html, body {
@@ -40,7 +39,6 @@ h2 {
 .game-container {
     /* background-color: red; */
     display: flex;
-    justify-content: space-between;
     flex-wrap: wrap;
     padding-bottom: 2.5rem;
 }
@@ -48,6 +46,7 @@ h2 {
 .grid-container {
     /* background-color: green; */
     height: 50rem;
+    margin: 0 14rem;
 }
 
 .grid {
@@ -111,11 +110,10 @@ h2 {
 .ships {
     position: relative;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     flex-wrap: wrap;
     width: 80rem;
-    margin-top: 2rem;
-    outline: blue dashed 5px;
+    margin: 5rem 40rem 0;
     /* background-color: blue; */
 }
     .ships > div {
@@ -129,7 +127,6 @@ h2 {
 
     .ship-cell{
         display: inline-block;
-        outline: red dashed 1px;
         width: 3.5rem;
         height: 3.5rem;
     }
@@ -177,11 +174,10 @@ h2 {
     }
 
 .buttons {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
+    position: relative;
     width: 20rem;
-    margin-top: 20rem;
+    margin: 20rem 0 15rem 0;
+    /* height: 13rem; */
 }
 
 button {
@@ -194,10 +190,25 @@ button {
     border-radius: 2rem;
     height: 6rem;
     width: 20rem;
-    background-color: var(--light-grid-color);
+    background-color: var(--light-cell-color);
+    cursor: pointer;
+
 }
 
 
+
+    #start-button{
+        margin: 1rem 0 1rem;
+    }
+    #rotate-button{
+        margin: 1rem 0 1rem;
+        background-color: var(--dark-cell-color);
+    }
+
+
+    .dragging {
+        outline: 2px solid red;
+    }
 
 /* Animations */
 
