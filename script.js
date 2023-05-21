@@ -1,6 +1,6 @@
 var CONST = {}
 
-CONST.AVAILABLE_SHIPS = ['destroyer', 'submarine', 'cruiser', 'battleship', 'carrier']
+CONST.AVAILABLE_SHIPS = ['destroy', 'submarine', 'cruiser', 'battleship', 'carrier']
 
 CONST.HUMAN_PLAYER = 0
 CONST.COPMUTER_PLAYER = 1
@@ -27,13 +27,15 @@ gridCells.forEach(function(cell) {
     cell.addEventListener('dragleave', function(e) {
         Grid.prototype.dragShipLeave(e)
     })
+    cell.addEventListener('dragend', function(e) {
+
+    })
 }) 
 
 let ships = document.querySelectorAll('.ship')
 ships.forEach(function(ship) {
-    ship.addEventListener('dragstart', (event) => {
-        shipSize = parseInt(event.target.getAttribute('data-size'), 10)
-        console.log(shipSize)
+    ship.addEventListener('dragstart', function(e)  {
+        shipSize = Ship.prototype.dragging(e)
     })
 })
 
@@ -60,7 +62,6 @@ Grid.prototype.init = function() {
         }
     }
 }
-
 Grid.prototype.dragShipEnter = function(e) {
     
     let direction = parseInt(document.getElementById('rotate-button').getAttribute('data-direction'), 10)
@@ -69,16 +70,19 @@ Grid.prototype.dragShipEnter = function(e) {
     let x = parseInt(e.target.getAttribute('data-x'), 10)
     let y = parseInt(e.target.getAttribute('data-y'), 10)
 
-    for (let i = 0; i < size; i++) {
-        let cell = document.querySelector(`.grid-cell${x}-${y}`)
-        cell.classList.add('dragover')
-        
-        if(direction === 0) {
-            y++
-        } else {
-            x++
+    if(this.isShipPlaceable(x, y, direction)) {
+        for (let i = 0; i < size; i++) {
+            let cell = document.querySelector(`.grid-cell${x}-${y}`)
+            cell.classList.add('dragover')
+            
+            if(direction === 0) {
+                y++
+            } else {
+                x++
+            }
         }
-    }   
+        console.log(x,y)   
+    }
 }
 
 Grid.prototype.dragShipLeave = function(e) {
@@ -89,44 +93,28 @@ Grid.prototype.dragShipLeave = function(e) {
     let x = parseInt(e.target.getAttribute('data-x'), 10)
     let y = parseInt(e.target.getAttribute('data-y'), 10)
 
-    for (let i = 0; i < size; i++) {
-        let cell = document.querySelector(`.grid-cell${x}-${y}`)
-        cell.classList.remove('dragover')
-        
-        if(direction === 0) {
-            y++
-        } else {
-            x++
-        }
-    }   
+    if(this.isShipPlaceable(x, y, direction)) {
+        for (let i = 0; i < size; i++) {
+            let cell = document.querySelector(`.grid-cell${x}-${y}`)
+            cell.classList.remove('dragover')
+            
+            if(direction === 0) {
+                y++
+            } else {
+                x++
+            }
+        }   
+    }
 }
 
+Grid.prototype.isShipPlaceable = function(x, y, direction) {
+    let size = parseInt(shipSize, 10)
 
-
-Grid.prototype.updateCell = function(x, y, shipType) {
-    let player
-    
-    switch (shipType) {
-        case CONST.CSS_EMPTY:
-            this.cells[x][y] = CONST.EMTPY
-            break
-        case CONST.CSS_SHIP:
-            this.cells[x][y] = CONST.SHIP
-            break
-        case CONST.CSS_MISS:
-            this.cells[x][y] = CONST.MISS
-            break
-        case CONST.CSS_HIT:
-            this.cells[x][y] = CONST.HIT
-            break
-        case CONST.CSS_SUNK:
-            this.cells[x][y] = CONST.SUNK
-            break
-        default:
-            this.cells[x][y] = CONST.EMTPY
-            break
+    if (direction === 0){
+        return y + size <= 10
+    } else {
+        return x + size <= 10
     }
-    this.setCSS
 }
 
 Grid.prototype.setCSS = function(player) {
@@ -142,7 +130,6 @@ Grid.prototype.setCSS = function(player) {
             
             let cssCell = document.querySelector(`${playerCSS} .grid-cell${x}-${y}`)
             
-    this.setCSS
             switch (cell) {
                 case CONST.EMTPY:
                     cssCell.classList.add(CONST.CSS_EMPTY)
@@ -172,6 +159,58 @@ function Fleet(playerGrid, player) {
     this.player = player
 }
 
+function Ship(type, playerGrid, player) {
+    this.damageTaken = 0
+    this.type = type
+    this.playerGrid = playerGrid
+    this.player = player
+
+    switch (type) {
+        case CONST.AVAILABLE_SHIPS[0]:
+            this.shipLength = 2
+            break
+        case CONST.AVAILABLE_SHIPS[1]:
+            this.shipLength = 3
+            break
+        case CONST.AVAILABLE_SHIPS[2]:
+            this.shipLength = 3
+            break
+        case CONST.AVAILABLE_SHIPS[3]:
+            this.shipLength = 4
+            break
+        case CONST.AVAILABLE_SHIPS[4]:
+            this.shipLength = 5
+            break
+        default:
+            this.shipLength = 2
+            break
+    }
+    this.maxDamage = this.shipLength
+    this.sunk = false
+}
+
+Ship.prototype.dragging = function(e) {
+    let shipLength = e.target.getAttribute('data-size')
+    return shipLength
+}
+
+Ship.DIRECTION_HORIZONTAL = 0
+Ship.DIRECTOIN_VERTICAL = 1
+
+Ship.prototype.isPlaceable = function(x, y, direction) {
+    if (this.isInsideGrid(x, y, direction)) {
+        
+    }
+}
+
+Ship.prototype.isInsideGrid = function(x, y, direction) {
+    if (direction === Ship.DIRECTION_HORIZONTAL) {
+        console.log(x + this.shipLength)
+        return x + this.shipLength <= 10
+    } else {
+        console.log(y + this.shipLength)
+        return y + this.shipLength <= 10
+    }
+}
+
 var game = new Game()
-
-
