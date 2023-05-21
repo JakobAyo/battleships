@@ -96,6 +96,16 @@ h2 {
     visibility: hidden;
 }
 
+    .main-player .miss {
+        background-color: var(--light-grid-color);
+        filter: none;
+    }
+
+    .cpu-player .miss{
+        background-color: var(--dark-grid-color);
+        filter: none;
+    }
+
     .cpu-player .grid-cell:hover {
         background-color: var(--light-cell-color);
         transform: scale(1.15);
