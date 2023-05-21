@@ -96,7 +96,7 @@ h2 {
     visibility: hidden;
 }
 
-    .main-player .miss {
+    .main-player .miss, .main-player .dragover{
         background-color: var(--light-grid-color);
         filter: none;
     }
