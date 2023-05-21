@@ -17,6 +17,25 @@ CONST.MISS = 2
 CONST.HIT = 3
 CONST.SUNK = 4
 
+let shipSize
+
+let gridCells = document.querySelectorAll('.main-player .grid-cell')
+gridCells.forEach(function(cell) {
+    cell.addEventListener('dragenter', function(e) {
+        Grid.prototype.dragShipEnter(e)
+    })
+    cell.addEventListener('dragleave', function(e) {
+        Grid.prototype.dragShipLeave(e)
+    })
+}) 
+
+let ships = document.querySelectorAll('.ship')
+ships.forEach(function(ship) {
+    ship.addEventListener('dragstart', (event) => {
+        shipSize = parseInt(event.target.getAttribute('data-size'), 10)
+        console.log(shipSize)
+    })
+})
 
 function Game() {
     this.humanGrid = new Grid()
@@ -40,8 +59,49 @@ Grid.prototype.init = function() {
             row.push(CONST.EMTPY)
         }
     }
-
 }
+
+Grid.prototype.dragShipEnter = function(e) {
+    
+    let direction = parseInt(document.getElementById('rotate-button').getAttribute('data-direction'), 10)
+    let size = shipSize
+
+    let x = parseInt(e.target.getAttribute('data-x'), 10)
+    let y = parseInt(e.target.getAttribute('data-y'), 10)
+
+    for (let i = 0; i < size; i++) {
+        let cell = document.querySelector(`.grid-cell${x}-${y}`)
+        cell.classList.add('dragover')
+        
+        if(direction === 0) {
+            y++
+        } else {
+            x++
+        }
+    }   
+}
+
+Grid.prototype.dragShipLeave = function(e) {
+    
+    let direction = parseInt(document.getElementById('rotate-button').getAttribute('data-direction'), 10)
+    let size = shipSize
+
+    let x = parseInt(e.target.getAttribute('data-x'), 10)
+    let y = parseInt(e.target.getAttribute('data-y'), 10)
+
+    for (let i = 0; i < size; i++) {
+        let cell = document.querySelector(`.grid-cell${x}-${y}`)
+        cell.classList.remove('dragover')
+        
+        if(direction === 0) {
+            y++
+        } else {
+            x++
+        }
+    }   
+}
+
+
 
 Grid.prototype.updateCell = function(x, y, shipType) {
     let player
@@ -66,6 +126,7 @@ Grid.prototype.updateCell = function(x, y, shipType) {
             this.cells[x][y] = CONST.EMTPY
             break
     }
+    this.setCSS
 }
 
 Grid.prototype.setCSS = function(player) {
@@ -81,6 +142,7 @@ Grid.prototype.setCSS = function(player) {
             
             let cssCell = document.querySelector(`${playerCSS} .grid-cell${x}-${y}`)
             
+    this.setCSS
             switch (cell) {
                 case CONST.EMTPY:
                     cssCell.classList.add(CONST.CSS_EMPTY)
@@ -102,6 +164,8 @@ Grid.prototype.setCSS = function(player) {
     }
 }
 
+
+
 function Fleet(playerGrid, player) {
     this.numShips = CONST.AVAILABLE_SHIPS
     this.playerGrid = playerGrid
@@ -110,14 +174,4 @@ function Fleet(playerGrid, player) {
 
 var game = new Game()
 
-game.humanGrid.updateCell(3, 1, 'miss')
-game.humanGrid.updateCell(0, 2, 'miss')
-game.humanGrid.updateCell(6, 3, 'miss')
-game.humanGrid.updateCell(0, 4, 'miss')
-game.humanGrid.updateCell(0, 5, 'miss')
-game.humanGrid.updateCell(1, 6, 'miss')
-game.humanGrid.updateCell(0, 7, 'miss')
-game.humanGrid.setCSS()
 
-game.computerGrid.updateCell(0, 0, 'miss')
-game.computerGrid.setCSS()
