@@ -30,9 +30,11 @@ rotateButton.addEventListener('click', function(e) {
 
 gridCells.forEach(function(cell) {
     cell.addEventListener('dragenter', function(e) {
+        e.preventDefault()
         Grid.prototype.dragShipEnter(e)
     })
     cell.addEventListener('dragleave', function(e) {
+        e.preventDefault()
         Grid.prototype.dragShipLeave(e)
     })
     cell.addEventListener('dragover', function(e) {
@@ -41,6 +43,10 @@ gridCells.forEach(function(cell) {
     cell.addEventListener('drop', function(e) {
         console.log(draggedShip)
         e.preventDefault()
+        let direction = parseInt(rotateButton.getAttribute('data-direction'), 10)
+        if (direction === 1) {
+            draggedShip.classList.add('vertical')
+        }
         cell.appendChild(draggedShip)
     })
 }) 
@@ -51,7 +57,7 @@ ships.forEach(function(ship) {
         draggedShip = e.target
     })
     ship.addEventListener('dragend', function(e) {
-        e.target.classList.remove('vertical')
+        // e.target.classList.remove('vertical')
     })
 })
 
@@ -70,8 +76,6 @@ Game.prototype.rotateShip = function() {
     } else {
         rotateButton.setAttribute('data-direction', 0)
     }
-
-
 }
 
 
