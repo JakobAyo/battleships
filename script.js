@@ -18,8 +18,16 @@ CONST.HIT = 3
 CONST.SUNK = 4
 
 let shipSize
-
+const rotateButton = document.getElementById('rotate-button')
 let gridCells = document.querySelectorAll('.main-player .grid-cell')
+let ships = document.querySelectorAll('.ship')
+
+let draggedShip
+
+rotateButton.addEventListener('click', function(e) {
+    Game.prototype.rotateShip(e)
+})
+
 gridCells.forEach(function(cell) {
     cell.addEventListener('dragenter', function(e) {
         Grid.prototype.dragShipEnter(e)
@@ -27,15 +35,23 @@ gridCells.forEach(function(cell) {
     cell.addEventListener('dragleave', function(e) {
         Grid.prototype.dragShipLeave(e)
     })
-    cell.addEventListener('dragend', function(e) {
-
+    cell.addEventListener('dragover', function(e) {
+        e.preventDefault()
+    })
+    cell.addEventListener('drop', function(e) {
+        console.log(draggedShip)
+        e.preventDefault()
+        cell.appendChild(draggedShip)
     })
 }) 
 
-let ships = document.querySelectorAll('.ship')
 ships.forEach(function(ship) {
-    ship.addEventListener('dragstart', function(e)  {
+    ship.addEventListener('drag', function(e)  {
         shipSize = Ship.prototype.dragging(e)
+        draggedShip = e.target
+    })
+    ship.addEventListener('dragend', function(e) {
+        e.target.classList.remove('vertical')
     })
 })
 
@@ -44,6 +60,18 @@ function Game() {
     this.computerGrid = new Grid()
     this.humanFleet = new Fleet(this.humanGrid, CONST.HUMAN_PLAYER)
     this.computerFleet = new Fleet(this.computerFleet, CONST.COPMUTER_PLAYER)
+}
+
+Game.prototype.rotateShip = function() {
+    let rotateButtonState = parseInt(rotateButton.getAttribute('data-direction'), 10)
+    
+    if (rotateButtonState === 0) {
+        rotateButton.setAttribute('data-direction', 1)
+    } else {
+        rotateButton.setAttribute('data-direction', 0)
+    }
+
+
 }
 
 
@@ -64,7 +92,7 @@ Grid.prototype.init = function() {
 }
 Grid.prototype.dragShipEnter = function(e) {
     
-    let direction = parseInt(document.getElementById('rotate-button').getAttribute('data-direction'), 10)
+    let direction = parseInt(rotateButton.getAttribute('data-direction'), 10)
     let size = shipSize
 
     let x = parseInt(e.target.getAttribute('data-x'), 10)
@@ -81,13 +109,12 @@ Grid.prototype.dragShipEnter = function(e) {
                 x++
             }
         }
-        console.log(x,y)   
     }
 }
 
 Grid.prototype.dragShipLeave = function(e) {
     
-    let direction = parseInt(document.getElementById('rotate-button').getAttribute('data-direction'), 10)
+    let direction = parseInt(rotateButton.getAttribute('data-direction'), 10)   
     let size = shipSize
 
     let x = parseInt(e.target.getAttribute('data-x'), 10)
@@ -191,6 +218,12 @@ function Ship(type, playerGrid, player) {
 
 Ship.prototype.dragging = function(e) {
     let shipLength = e.target.getAttribute('data-size')
+    let direction = parseInt(rotateButton.getAttribute('data-direction'), 10)
+
+    if (direction === 1) {
+        e.target.classList.add('vertical')
+    }
+
     return shipLength
 }
 
