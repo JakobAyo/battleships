@@ -132,7 +132,7 @@ h2 {
     /* background-color: blue; */
 }
     .vertical {
-        transform: rotate(-90deg);
+        transform: rotate(90deg);
     }
 
     .ships > div {
@@ -150,56 +150,60 @@ h2 {
         height: 3.5rem;
     }
 
+    .ship{
+        width: calc(3.5rem * var(--width, 1));
+        height: calc(3.5rem * var(--height, 1));
+    }
 
     .destroyer {
         /* background-color: brown; */
-        position: absolute;
         background-image: url(images/destroyer.png);
         background-size: 100%;
         height: 3.5rem;
         width: 7.25rem;
-        z-index: 999;
+        
+        transform-origin: 24%;   
     }
 
     .submarine {
         /* background-color: yellow; */
-        position: absolute;
         background-image: url(images/submarine.png);
         background-size: 100%;
         width: 11.25rem;
         height: 3.5rem;
-        z-index: 999;
+
+        transform-origin: 15%;
     }
 
 
     .cruiser {
         /* background-color: aqua; */
-        position: absolute;
         background-image: url(images/cruiser.png);
         background-size: 100%;
         width: 11.25rem;
         height: 3.5rem;
-        z-index: 999;
+        
+        transform-origin: 15%;
     }
 
     .battleship {
         /* background-color: hotpink; */
-        position: absolute;
         background-image: url(images/battleship.png);
         background-size: 100%;
         width: 15.5rem;
         height: 3.5rem;
-        z-index: 999;
+
+        transform-origin: 11%;
     }
 
     .carrier {
         /* background-color: palegreen; */
-        position: absolute;
         background-image: url(images/carrier.png);
         background-size: 100%;
         width: 19.5rem;
         height: 3.5rem;
-        z-index: 999;
+
+        transform-origin: 8.5%;
     }
 
 .buttons {
