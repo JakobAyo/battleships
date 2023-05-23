@@ -42,18 +42,17 @@ h2 {
 }
 
 .game-container {
-    /* background-color: red; */
     display: flex;
     flex-wrap: wrap;
     padding-bottom: 2.5rem;
 }
 
 .grid-container {
-    /* background-color: green; */
     height: 50rem;
     margin: 0 14rem;
 }
 
+/* Grid Properties */
 .grid {
     position: relative;
     top: 50%;
@@ -97,9 +96,6 @@ h2 {
     height: 3.5em;
 }
 
-.grid-cell.hidden{
-    visibility: hidden;
-}
 
     .main-player .miss, .main-player .dragover{
         background-color: var(--light-grid-color);
@@ -121,7 +117,7 @@ h2 {
         
     }
 
-    /* Ship properties */
+/* Ship properties */
 .ships {
     position: relative;
     display: flex;
@@ -129,10 +125,12 @@ h2 {
     flex-wrap: wrap;
     width: 80rem;
     margin: 5rem 40rem 0;
-    /* background-color: blue; */
 }
     .vertical {
         transform: rotate(90deg);
+    }
+    .horizontal{
+        transform: rotate(360deg);
     }
 
     .ships > div {
@@ -151,25 +149,25 @@ h2 {
     }
 
     .ship{
-        width: calc(3.5rem * var(--width, 1));
-        height: calc(3.5rem * var(--height, 1));
+        --width: 3.5rem;
+        --height: 3.5rem;
+
     }
+
 
     .destroyer {
-        /* background-color: brown; */
         background-image: url(images/destroyer.png);
         background-size: 100%;
+        width: calc(var(--width)* 2 + 0.125rem);
         height: 3.5rem;
-        width: 7.25rem;
-        
+
         transform-origin: 24%;   
     }
-
+       
     .submarine {
-        /* background-color: yellow; */
         background-image: url(images/submarine.png);
         background-size: 100%;
-        width: 11.25rem;
+        width: calc(var(--width) * 3 + 0.125rem * 2);
         height: 3.5rem;
 
         transform-origin: 15%;
@@ -177,30 +175,27 @@ h2 {
 
 
     .cruiser {
-        /* background-color: aqua; */
         background-image: url(images/cruiser.png);
         background-size: 100%;
-        width: 11.25rem;
+        width: calc(var(--width) * 3 + 0.125rem * 2);
         height: 3.5rem;
         
         transform-origin: 15%;
     }
 
     .battleship {
-        /* background-color: hotpink; */
         background-image: url(images/battleship.png);
         background-size: 100%;
-        width: 15.5rem;
-        height: 3.5rem;
+        width: calc(var(--width) * 4 + 0.125rem * 3) ;
+        height: 3.3rem;
 
         transform-origin: 11%;
     }
 
     .carrier {
-        /* background-color: palegreen; */
         background-image: url(images/carrier.png);
         background-size: 100%;
-        width: 19.5rem;
+        width: calc(var(--width) * 5 + 0.125rem * 4);
         height: 3.5rem;
 
         transform-origin: 8.5%;
@@ -210,7 +205,6 @@ h2 {
     position: relative;
     width: 20rem;
     margin: 20rem 0 15rem 0;
-    /* height: 13rem; */
 }
 
 button {
@@ -243,7 +237,6 @@ button {
 
 /* Animations */
 
-
 @media (max-width: 1330px) {
     html,body {
         font-size: 12px;
@@ -256,7 +249,6 @@ button {
     }
     
     .game-container {
-        /* background-color: red; */
         display: flex;
         justify-content: space-around;
         align-content: center;
