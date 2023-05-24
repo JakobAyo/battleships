@@ -97,7 +97,8 @@ h2 {
 }
 
 
-    .main-player .miss, .main-player .dragover{
+
+    .main-player .miss, .main-player .dragover, .main-player .ship{
         background-color: var(--light-grid-color);
         filter: none;
     }
@@ -116,6 +117,7 @@ h2 {
         cursor: url('images/target1.png') 24 24, crosshair;
         
     }
+
 
 /* Ship properties */
 .ships {
@@ -161,7 +163,7 @@ h2 {
         width: calc(var(--width)* 2 + 0.125rem);
         height: 3.5rem;
 
-        transform-origin: 24%;   
+        transform-origin: 24%;
     }
        
     .submarine {
