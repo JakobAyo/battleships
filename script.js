@@ -17,7 +17,6 @@ CONST.MISS = 2
 CONST.HIT = 3
 CONST.SUNK = 4
 
-let shipSize
 const rotateButton = document.getElementById('rotate-button')
 let mainPlayerGridCells = document.querySelectorAll('.main-player .grid-cell')
 let cpuPlayerGridCells = document.querySelectorAll('.cpu-player .grid-cell')
@@ -25,6 +24,7 @@ let ships = document.querySelectorAll('.ship')
 
 // Global Variables for Eventlisteners
 let draggedShip
+let shipSize
 let xPosition
 let yPosition
 
@@ -34,13 +34,16 @@ rotateButton.addEventListener('click', function(e) {
 })
 
 mainPlayerGridCells.forEach(function(cell) {
+    cell.addEventListener('dragstart', function(e) {
+        e.preventDefault()
+    })
     cell.addEventListener('dragenter', function(e) {
         e.preventDefault()
-        Grid.prototype.dragShipEnter(e)
+        Grid.prototype.dragShipOver(e)
     })
     cell.addEventListener('dragleave', function(e) {
         e.preventDefault()
-        Grid.prototype.dragShipLeave(e)
+        Grid.prototype.dragShipOver(e)
     })
     cell.addEventListener('dragover', function(e) {
         e.preventDefault()
@@ -56,6 +59,7 @@ mainPlayerGridCells.forEach(function(cell) {
         }
         if (Grid.prototype.isShipPlaceable(xPosition, yPosition, direction)){
             cell.appendChild(draggedShip)
+            Grid.prototype.shipPlaced(xPosition, yPosition, direction)
         }
     })
 }) 
@@ -64,9 +68,6 @@ ships.forEach(function(ship) {
     ship.addEventListener('drag', function(e) {
         shipSize = Ship.prototype.dragging(e)
         draggedShip = e.target
-    })
-    ship.addEventListener('dragend', function(e) {
-        // e.target.classList.remove('vertical')
     })
 })
 
@@ -87,7 +88,6 @@ Game.prototype.rotateShip = function() {
     }
 }
 
-
 function Grid() {
     this.cells = []
     this.init()
@@ -103,7 +103,7 @@ Grid.prototype.init = function() {
         }
     }
 }
-Grid.prototype.dragShipEnter = function(e) {
+Grid.prototype.dragShipOver = function(e) {
     
     let direction = parseInt(rotateButton.getAttribute('data-direction'), 10)
     let size = shipSize
@@ -115,8 +115,8 @@ Grid.prototype.dragShipEnter = function(e) {
 
     if(this.isShipPlaceable(x, y, direction)) {
         for (let i = 0; i < size; i++) {
-            let cell = document.querySelector(`.grid-cell${x}-${y}`)
-            cell.classList.add('dragover')
+            let cell = document.querySelector(`.grid-cell${x}-${y}`)            
+            cell.classList.toggle('dragover')
 
             if(direction === 0) {
                 y++
@@ -125,39 +125,41 @@ Grid.prototype.dragShipEnter = function(e) {
             }
         }
     }
-    
 }
 
-Grid.prototype.dragShipLeave = function(e) {
-    
-    let direction = parseInt(rotateButton.getAttribute('data-direction'), 10)   
-    let size = shipSize
-
-    let x = parseInt(e.target.getAttribute('data-x'), 10)
-    let y = parseInt(e.target.getAttribute('data-y'), 10)
-
-    if(this.isShipPlaceable(x, y, direction)) {
-        for (let i = 0; i < size; i++) {
-            let cell = document.querySelector(`.grid-cell${x}-${y}`)
-            cell.classList.remove('dragover')
-        
-
-            if(direction === 0) {
-                y++
-            } else {
-                x++
-            }
-        }   
-    }
-}
 
 Grid.prototype.isShipPlaceable = function(x, y, direction) {
     let size = parseInt(shipSize, 10)
+    let cells = game.humanGrid.cells
 
     if (direction === 0){
+        for (let i = 0 ; i < size; i++){
+            if(cells[x][y + i] === CONST.SHIP) {
+                return false
+            }
+        }
         return y + size <= 10
     } else {
+        for (let i = 0; i < size; i++){
+            if(cells[x + i][y] === CONST.SHIP) {
+                return false
+            }
+        }
         return x + size <= 10
+    }
+}
+
+Grid.prototype.shipPlaced = function(x, y, direction){
+    let size = shipSize
+
+    for (let i = 0; i < size; i++){
+        game.humanGrid.cells[x][y] = CONST.SHIP
+
+        if (direction === 0) {
+            y++
+        } else {
+            x++
+        }
     }
 }
 
@@ -193,7 +195,6 @@ Grid.prototype.setCSS = function(player) {
             }
         }
     }
-    console.log(this.cells)
 }
 
 function Fleet(playerGrid, player) {
@@ -247,21 +248,5 @@ Ship.prototype.dragging = function(e) {
 
 Ship.DIRECTION_HORIZONTAL = 0
 Ship.DIRECTOIN_VERTICAL = 1
-
-Ship.prototype.isPlaceable = function(x, y, direction) {
-    if (this.isInsideGrid(x, y, direction)) {
-        
-    }
-}
-
-Ship.prototype.isInsideGrid = function(x, y, direction) {
-    if (direction === Ship.DIRECTION_HORIZONTAL) {
-        console.log(x + this.shipLength)
-        return x + this.shipLength <= 10
-    } else {
-        console.log(y + this.shipLength)
-        return y + this.shipLength <= 10
-    }
-}
 
 var game = new Game()
