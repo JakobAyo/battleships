@@ -71,7 +71,7 @@ h2 {
     height: 40rem;
 }
 
-    .grid.main-player {
+    .grid.human-player {
         background-color: var(--light-grid-color);
     }
 
@@ -83,7 +83,7 @@ h2 {
         background-color: var(--dark-cell-color);
     }
 
-    .grid.main-player > * {
+    .grid.human-player > * {
         background-color: var(--light-cell-color);
     }
 
@@ -98,7 +98,7 @@ h2 {
 
 
 
-    .main-player .miss, .main-player .dragover, .main-player .ship{
+    .human-player .miss, .human-player .ship{
         background-color: var(--light-grid-color);
         filter: none;
     }
@@ -294,7 +294,7 @@ button {
         flex-direction: column;
     }
 
-    .grid-container.main-player {
+    .grid-container.human-player {
         -webkit-box-ordinal-group: 2;
         -moz-box-ordinal-group: 2;
         -ms-flex-order: 2;
