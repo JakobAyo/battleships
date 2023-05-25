@@ -38,6 +38,14 @@ startButton.addEventListener('click', function() {
     mainGame.startGame()
 })
 // Cell Event Listeners
+cpuPlayerGridCells.forEach(function(cell) {
+    cell.addEventListener('click', function(e) {
+        let x = parseInt(e.target.getAttribute('data-x'), 10)
+        let y = parseInt(e.target.getAttribute('data-y'), 10)
+        mainGame.shoot(x, y, CONST.COPMUTER_PLAYER)
+    })
+})
+
 humanPlayerGridCells.forEach(function(cell) {
     cell.addEventListener('dragstart', function(e) {
         e.preventDefault()
@@ -64,8 +72,7 @@ humanPlayerGridCells.forEach(function(cell) {
         }
         if (mainGame.humanGrid.isShipPlaceable(xPosition, yPosition, direction)){
             cell.appendChild(draggedShip)
-            mainGame.humanGrid.upadteCells(xPosition, yPosition, direction, shipSize)
-            
+            mainGame.humanGrid.placeShip(xPosition, yPosition, direction, shipSize)
         }
     })
 }) 
@@ -96,6 +103,35 @@ Game.prototype.rotateShip = function() {
     }
 }
 
+Game.prototype.shoot = function(x, y, targetPlayer) {
+    let targetFleet
+    let targetGrid
+    let foundShip = false
+
+    if (targetPlayer === CONST.HUMAN_PLAYER){
+        targetFleet = this.humanFleet
+        targetGrid = this.humanGrid
+    } else {
+        targetFleet = this.computerFleet
+        targetGrid = this.computerGrid
+    }
+
+    targetFleet.allShips.forEach(ship => {
+        if (ship.getCoordinates(x, y) && targetGrid.cells[x][y] !== CONST.HIT){
+            ship.incrementdamage()
+            targetGrid.isHit(x, y, targetPlayer)
+            
+            if (ship.isSunk()){
+                ship.sinkShip()
+                targetGrid.isSunk(ship, targetPlayer)
+            }
+            foundShip = true
+        } 
+    })
+    if (!foundShip){
+        targetGrid.isMiss(x, y, targetPlayer)
+    }
+}
 
 // Create a Grid 
 function Grid() {
@@ -162,7 +198,8 @@ Grid.prototype.isShipPlaceable = function(x, y, direction) {
     }
 }
 
-Grid.prototype.upadteCells = function(x, y, direction, size){
+
+Grid.prototype.placeShip = function(x, y, direction, size){
 
     for (let i = 0; i < size; i++){
         this.cells[x][y] = CONST.SHIP
@@ -191,7 +228,6 @@ Grid.prototype.updateCellCSS = function(player) {
 
             switch (cell) {
                 case CONST.SHIP:
-                    cellDiv.classList.add(CONST.CSS_SHIP)
                     break
                 case CONST.MISS:
                     cellDiv.classList.add(CONST.CSS_MISS)
@@ -201,12 +237,43 @@ Grid.prototype.updateCellCSS = function(player) {
                     break
                 case CONST.SUNK:
                     cellDiv.classList.add(CONST.CSS_SUNK)
+                    cellDiv.classList.remove(CONST.CSS_HIT)
                     break
             }
         }
     }
 }
+
+Grid.prototype.appendShipChild = function(x, y, ship) {
+    let cell = document.querySelector(`.cpu-player .grid-cell${x}-${y}`)
+    let shipDiv = document.createElement('div')
+    if (ship.direction === 0) {
+        shipDiv.classList.add('ship', ship.type, 'horizontal')
+    } else {
+        shipDiv.classList.add('ship', ship.type, 'vertical')
+    }
+}
+
+Grid.prototype.isHit = function(x, y, targetPlayer) {
+    this.cells[x][y] = CONST.HIT
+    this.updateCellCSS(targetPlayer) 
+}
+
+Grid.prototype.isMiss = function(x, y, targetPlayer){
+    this.cells[x][y] = CONST.MISS
+    this.updateCellCSS(targetPlayer)
+}
+
+Grid.prototype.isSunk = function(ship, targetPlayer) {
+    let xPosition = ship.xPosition
+    let yPosition = ship.yPosition
     
+    for (let i = 0; i < ship.shipLength; i++){
+        this.cells[xPosition[i]][yPosition[i]] = CONST.SUNK
+    }
+    this.updateCellCSS(targetPlayer)
+    this.appendShipChild(xPosition[0], yPosition[0], ship)
+}
 
 
 function Fleet(playerGrid, player) {
@@ -235,19 +302,9 @@ Fleet.prototype.placeShipsRandomly = function() {
                 [x, y] = [generateRandomNumber(0, 9), generateRandomNumber(0, 9)]
                 direction = generateRandomNumber(0, 1)
             }
-            this.playerGrid.upadteCells(x, y, direction, ship.shipLength)
-            
-            let shipDiv = document.createElement('div')
-            if (direction === Ship.DIRECTION_HORIZONTAL) {
-                shipDiv.classList.add('ship', `${ship.type}`, 'horizontal')
-            } else {
-                shipDiv.classList.add('ship', `${ship.type}`, 'vertical')
-            }
-            let cell = document.querySelector(`.cpu-player .grid-cell${x}-${y}`)
-            cell.appendChild(shipDiv)
-        })
-        this.playerGrid.updateCellCSS(this.player)
-        console.log(this.playerGrid.cells)
+            this.playerGrid.placeShip(x, y, direction, ship.shipLength)
+            ship.coordinates(x, y, direction)
+    })
 }
 
 function Ship(type) {
@@ -278,7 +335,47 @@ function Ship(type) {
     this.sunk = false
 }
 
+Ship.prototype.coordinates = function(x, y, direction) {
+    console.log(x, y, direction)
+    this.xPosition = []
+    this.yPosition = []
+    this.direction = direction
 
+    for(i = 0; i < this.shipLength; i++) {
+        if (direction === Ship.DIRECTION_HORIZONTAL) {
+            this.xPosition.push(x)
+            this.yPosition.push(y + i)
+        } else {
+            this.xPosition.push(x + i)
+            this.yPosition.push(y)
+        }
+    }
+    console.log(this.xPosition, this.yPosition)
+}
+
+Ship.prototype.getCoordinates = function(x, y) {
+    for(let i = 0; i < this.xPosition.length; i++){
+        if(x === this.xPosition[i]){
+            if(y === this.yPosition[i]){
+                return true
+            }
+        }
+    }
+    return false
+}
+
+Ship.prototype.incrementdamage = function() {
+    this.damageTaken++
+}
+
+Ship.prototype.isSunk = function() {
+    return this.damageTaken >= this.maxDamage
+}
+
+Ship.prototype.sinkShip = function() {
+    this.damageTaken = this.maxDamage
+    this.sunk = true
+}
 
 Ship.prototype.dragging = function(e) {
     let shipLength = e.target.getAttribute('data-size')
