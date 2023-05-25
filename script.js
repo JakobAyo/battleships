@@ -64,7 +64,8 @@ humanPlayerGridCells.forEach(function(cell) {
         }
         if (mainGame.humanGrid.isShipPlaceable(xPosition, yPosition, direction)){
             cell.appendChild(draggedShip)
-            mainGame.humanGrid.shipPlaced(xPosition, yPosition, direction, shipSize)
+            mainGame.humanGrid.upadteCells(xPosition, yPosition, direction, shipSize)
+            
         }
     })
 }) 
@@ -161,7 +162,7 @@ Grid.prototype.isShipPlaceable = function(x, y, direction) {
     }
 }
 
-Grid.prototype.shipPlaced = function(x, y, direction, size){
+Grid.prototype.upadteCells = function(x, y, direction, size){
 
     for (let i = 0; i < size; i++){
         this.cells[x][y] = CONST.SHIP
@@ -190,6 +191,7 @@ Grid.prototype.updateCellCSS = function(player) {
 
             switch (cell) {
                 case CONST.SHIP:
+                    cellDiv.classList.add(CONST.CSS_SHIP)
                     break
                 case CONST.MISS:
                     cellDiv.classList.add(CONST.CSS_MISS)
@@ -233,10 +235,10 @@ Fleet.prototype.placeShipsRandomly = function() {
                 [x, y] = [generateRandomNumber(0, 9), generateRandomNumber(0, 9)]
                 direction = generateRandomNumber(0, 1)
             }
-            this.playerGrid.shipPlaced(x, y, direction, ship.shipLength)
+            this.playerGrid.upadteCells(x, y, direction, ship.shipLength)
             
             let shipDiv = document.createElement('div')
-            if (direction === 0) {
+            if (direction === Ship.DIRECTION_HORIZONTAL) {
                 shipDiv.classList.add('ship', `${ship.type}`, 'horizontal')
             } else {
                 shipDiv.classList.add('ship', `${ship.type}`, 'vertical')
@@ -245,7 +247,7 @@ Fleet.prototype.placeShipsRandomly = function() {
             cell.appendChild(shipDiv)
         })
         this.playerGrid.updateCellCSS(this.player)
-    console.log(this.playerGrid.cells)
+        console.log(this.playerGrid.cells)
 }
 
 function Ship(type) {
@@ -277,11 +279,12 @@ function Ship(type) {
 }
 
 
+
 Ship.prototype.dragging = function(e) {
     let shipLength = e.target.getAttribute('data-size')
     let direction = parseInt(rotateButton.getAttribute('data-direction'), 10)
 
-    if (direction === 1) {
+    if (direction === Ship.DIRECTOIN_VERTICAL) {
         e.target.classList.add('vertical')
     } else {
         e.target.classList.remove('vertical')
