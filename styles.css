@@ -96,17 +96,23 @@ h2 {
     height: 3.5em;
 }
 
-
-
     .human-player .miss, .human-player .ship{
         background-color: var(--light-grid-color);
         filter: none;
     }
-    
 
-    .cpu-player .miss, .cpu-player  .ship{
+    .cpu-player .miss{
         background-color: var(--dark-grid-color);
         filter: none;
+        pointer-events: none;
+    }
+
+    .cpu-player .hit{
+        background-color: red;
+    }
+
+    .cpu-player .sunk{
+        background-color: black;
     }
 
     .cpu-player .grid-cell:hover {
