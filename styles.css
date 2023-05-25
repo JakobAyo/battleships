@@ -102,8 +102,9 @@ h2 {
         background-color: var(--light-grid-color);
         filter: none;
     }
+    
 
-    .cpu-player .miss{
+    .cpu-player .miss, .cpu-player  .ship{
         background-color: var(--dark-grid-color);
         filter: none;
     }
@@ -223,8 +224,6 @@ button {
     cursor: pointer;
 
 }
-
-
 
     #start-button{
         margin: 1rem 0 1rem;
