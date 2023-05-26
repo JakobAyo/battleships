@@ -41,11 +41,12 @@ startButton.addEventListener('click', function() {
 // Cell Event Listeners
 cpuPlayerGridCells.forEach(function(cell) {
     cell.addEventListener('click', function(e) {
-        if (mainGame.gameStartAllowed){
+        if (mainGame.gameStartAllowed && mainGame.humanTurn){
             let x = parseInt(e.target.getAttribute('data-x'), 10)
             let y = parseInt(e.target.getAttribute('data-y'), 10)
             mainGame.shoot(x, y, CONST.COPMUTER_PLAYER)
-            mainGame.shoot(2, 2, CONST.HUMAN_PLAYER)
+            mainGame.humanTurn = false
+            mainGame.cycleTurns()
         }
     })
 })
@@ -128,6 +129,7 @@ function Game() {
     this.gameStartAllowed = false
 
     this.computer = new Computer(this.humanGrid.cells)
+    this.humanTurn = true
 }
 
 Game.prototype.startGame = function() {
@@ -190,35 +192,49 @@ Game.prototype.shoot = function(x, y, targetPlayer) {
         targetGrid.isMiss(x, y, targetPlayer)
     }
 }
+
+Game.prototype.cycleTurns = function() {
+    let xTarget = this.computer.shootCoordinates()[0]
+    let yTarget = this.computer.shootCoordinates()[1]
+
+    if (!this.humanTurn){
+        this.shoot(xTarget, yTarget, CONST.HUMAN_PLAYER)
+        this.humanTurn = true
+    } 
+
+}
 // TODO make the computer shoot ships down
 function Computer(humanGridCells) {
     this.humanGridCells = humanGridCells
-    this.targetCell = []
+    this.targetCells = []
     this.init()
 }
 
 Computer.prototype.init = function() {
     for (let x = 0; x < 10; x++) {
         let row = []
-        this.targetCell[x] = row
+        this.targetCells[x] = row
         for (let y = 0; y < 10; y++) {
             row.push(CONST.EMTPY)
         }
     }
 }
 
-Computer.prototype.shoot = function() {
+Computer.prototype.shootCoordinates = function() {
     let [x, y] = [generateRandomNumber(0, 9), generateRandomNumber(0, 9)]
 
-    while(this.targetGrid[x][y] !== CONST.EMTPY){
+    while(this.targetCells[x][y] !== CONST.EMTPY){
         [x, y] = [generateRandomNumber(0, 9), generateRandomNumber(0, 9)]
     }
     
     if (this.humanGridCells[x][y] === CONST.SHIP) {
-        this.targetGrid[x][y] = CONST.HIT
+        this.targetCells[x][y] = CONST.HIT
     } else {
-        this.targetGrid[x][y] = CONST.MISS
+        this.targetCells[x][y] = CONST.MISS
     }
+
+    let shotCell = [x, y]
+    return shotCell
 }
 
 // Create a Grid 
@@ -489,3 +505,4 @@ function generateRandomNumber(min, max) {
 
 var mainGame = new Game()
 mainGame.computerFleet.placeShipsRandomly()
+
