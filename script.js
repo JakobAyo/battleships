@@ -1,9 +1,9 @@
 var CONST = {}
 
-CONST.AVAILABLE_SHIPS = ['destroyer', 'submarine', 'cruiser', 'battleship', 'carrier']
+CONST.AVComputerLABLE_SHIPS = ['destroyer', 'submarine', 'cruiser', 'battleship', 'carrier']
 
-CONST.HUMAN_PLAYER = 0
-CONST.COPMUTER_PLAYER = 1
+CONST.HUMAN_PLAYER = 'You'
+CONST.COPMUTER_PLAYER = 'Computer'
 
 CONST.CSS_EMPTY = 'empty'
 CONST.CSS_SHIP = 'ship'
@@ -17,6 +17,8 @@ CONST.MISS = 2
 CONST.HIT = 3
 CONST.SUNK = 4
 
+CONST.TOTAL_HITS = 17
+
 const rotateButton = document.getElementById('rotate-button')
 const startButton = document.getElementById('start-button')
 let humanPlayerGridCells = document.querySelectorAll('.human-player .grid-cell')
@@ -28,7 +30,6 @@ let draggedShip
 let shipSize
 let xPosition
 let yPosition
-
 // Buttons Event Listeners
 rotateButton.addEventListener('click', function(e) {
     mainGame.rotateShip(e)
@@ -40,9 +41,12 @@ startButton.addEventListener('click', function() {
 // Cell Event Listeners
 cpuPlayerGridCells.forEach(function(cell) {
     cell.addEventListener('click', function(e) {
-        let x = parseInt(e.target.getAttribute('data-x'), 10)
-        let y = parseInt(e.target.getAttribute('data-y'), 10)
-        mainGame.shoot(x, y, CONST.COPMUTER_PLAYER)
+        if (mainGame.gameStartAllowed){
+            let x = parseInt(e.target.getAttribute('data-x'), 10)
+            let y = parseInt(e.target.getAttribute('data-y'), 10)
+            mainGame.shoot(x, y, CONST.COPMUTER_PLAYER)
+            mainGame.shoot(2, 2, CONST.HUMAN_PLAYER)
+        }
     })
 })
 
@@ -73,6 +77,11 @@ humanPlayerGridCells.forEach(function(cell) {
         if (mainGame.humanGrid.isShipPlaceable(xPosition, yPosition, direction)){
             cell.appendChild(draggedShip)
             mainGame.humanGrid.placeShip(xPosition, yPosition, direction, shipSize)
+            mainGame.humanFleet.allShips.forEach(ship => {
+                if (ship.type === draggedShip.classList.item(1)){
+                    ship.coordinates(xPosition, yPosition, direction)
+                }
+            })
         }
     })
 }) 
@@ -85,17 +94,57 @@ ships.forEach(function(ship) {
     })
 })
 
+function Stats() {
+    this.shotsTaken = 0
+    this.shotsHit = 0
+    this.gameWon = false
+}
+
+Stats.prototype.incrementShotsTaken = function() {
+    this.shotsTaken++
+}
+
+Stats.prototype.incrementShotsHit = function() {
+    this.shotsHit++
+}
+
+Stats.prototype.hasWonGame = function(player) {
+    if (this.shotsHit >= CONST.TOTAL_HITS) {
+        this.gameWon = true
+        console.log(player + ' Won The Game!')
+    }
+}
+
+
 // Create a mainGame
 function Game() {
+    this.humanStats = new Stats()
+    this.computerStats = new Stats()
     this.humanGrid = new Grid()
     this.computerGrid = new Grid()
     this.humanFleet = new Fleet(this.humanGrid, CONST.HUMAN_PLAYER)
     this.computerFleet = new Fleet(this.computerGrid, CONST.COPMUTER_PLAYER)
+
+    this.gameStartAllowed = false
+
+    this.computer = new Computer(this.humanGrid.cells)
+}
+
+Game.prototype.startGame = function() {
+    let allShips = this.humanFleet.allShips
+
+    for (let i = 0; i < allShips.length; i++){
+        if (!allShips[i].placed){
+            this.gameStartAllowed = false
+            break
+        }
+        this.gameStartAllowed = true
+    }
 }
 
 Game.prototype.rotateShip = function() {
     let rotateButtonState = parseInt(rotateButton.getAttribute('data-direction'), 10)
-    
+
     if (rotateButtonState === 0) {
         rotateButton.setAttribute('data-direction', 1)
     } else {
@@ -104,22 +153,31 @@ Game.prototype.rotateShip = function() {
 }
 
 Game.prototype.shoot = function(x, y, targetPlayer) {
-    let targetFleet
-    let targetGrid
+    let targetFleet,  targetGrid,  targetStats
+    let selfStats, selfPlayer
     let foundShip = false
 
     if (targetPlayer === CONST.HUMAN_PLAYER){
         targetFleet = this.humanFleet
         targetGrid = this.humanGrid
+        targetStats = this.humanStats
+        selfStats = this.computerStats
+        selfPlayer = CONST.COPMUTER_PLAYER
     } else {
         targetFleet = this.computerFleet
         targetGrid = this.computerGrid
+        targetStats = this.computerStats
+        selfStats = this.humanStats
+        selfPlayer = CONST.HUMAN_PLAYER
     }
 
     targetFleet.allShips.forEach(ship => {
         if (ship.getCoordinates(x, y) && targetGrid.cells[x][y] !== CONST.HIT){
             ship.incrementdamage()
             targetGrid.isHit(x, y, targetPlayer)
+            targetStats.incrementShotsTaken()
+            selfStats.incrementShotsHit()
+            selfStats.hasWonGame(selfPlayer)
             
             if (ship.isSunk()){
                 ship.sinkShip()
@@ -130,6 +188,36 @@ Game.prototype.shoot = function(x, y, targetPlayer) {
     })
     if (!foundShip){
         targetGrid.isMiss(x, y, targetPlayer)
+    }
+}
+// TODO make the computer shoot ships down
+function Computer(humanGridCells) {
+    this.humanGridCells = humanGridCells
+    this.targetCell = []
+    this.init()
+}
+
+Computer.prototype.init = function() {
+    for (let x = 0; x < 10; x++) {
+        let row = []
+        this.targetCell[x] = row
+        for (let y = 0; y < 10; y++) {
+            row.push(CONST.EMTPY)
+        }
+    }
+}
+
+Computer.prototype.shoot = function() {
+    let [x, y] = [generateRandomNumber(0, 9), generateRandomNumber(0, 9)]
+
+    while(this.targetGrid[x][y] !== CONST.EMTPY){
+        [x, y] = [generateRandomNumber(0, 9), generateRandomNumber(0, 9)]
+    }
+    
+    if (this.humanGridCells[x][y] === CONST.SHIP) {
+        this.targetGrid[x][y] = CONST.HIT
+    } else {
+        this.targetGrid[x][y] = CONST.MISS
     }
 }
 
@@ -252,6 +340,7 @@ Grid.prototype.appendShipChild = function(x, y, ship) {
     } else {
         shipDiv.classList.add('ship', ship.type, 'vertical')
     }
+    cell.appendChild(shipDiv)
 }
 
 Grid.prototype.isHit = function(x, y, targetPlayer) {
@@ -277,7 +366,7 @@ Grid.prototype.isSunk = function(ship, targetPlayer) {
 
 
 function Fleet(playerGrid, player) {
-    this.numShips = CONST.AVAILABLE_SHIPS.length
+    this.numShips = CONST.AVComputerLABLE_SHIPS.length
     this.playerGrid = playerGrid
     this.player = player
     this.allShips = []
@@ -286,7 +375,7 @@ function Fleet(playerGrid, player) {
 
 Fleet.prototype.init = function() {
     for(let i = 0; i < this.numShips; i++) {
-        this.allShips.push(new Ship(CONST.AVAILABLE_SHIPS[i]))
+        this.allShips.push(new Ship(CONST.AVComputerLABLE_SHIPS[i]))
     }
 }
 
@@ -312,19 +401,19 @@ function Ship(type) {
     this.type = type
 
     switch (type) {
-        case CONST.AVAILABLE_SHIPS[0]:
+        case CONST.AVComputerLABLE_SHIPS[0]:
             this.shipLength = 2
             break
-        case CONST.AVAILABLE_SHIPS[1]:
+        case CONST.AVComputerLABLE_SHIPS[1]:
             this.shipLength = 3
             break
-        case CONST.AVAILABLE_SHIPS[2]:
+        case CONST.AVComputerLABLE_SHIPS[2]:
             this.shipLength = 3
             break
-        case CONST.AVAILABLE_SHIPS[3]:
+        case CONST.AVComputerLABLE_SHIPS[3]:
             this.shipLength = 4
             break
-        case CONST.AVAILABLE_SHIPS[4]:
+        case CONST.AVComputerLABLE_SHIPS[4]:
             this.shipLength = 5
             break
         default:
@@ -333,6 +422,7 @@ function Ship(type) {
     }
     this.maxDamage = this.shipLength
     this.sunk = false
+    this.placed = false
 }
 
 Ship.prototype.coordinates = function(x, y, direction) {
@@ -350,7 +440,7 @@ Ship.prototype.coordinates = function(x, y, direction) {
             this.yPosition.push(y)
         }
     }
-    console.log(this.xPosition, this.yPosition)
+    this.placed = true
 }
 
 Ship.prototype.getCoordinates = function(x, y) {
@@ -381,11 +471,11 @@ Ship.prototype.dragging = function(e) {
     let shipLength = e.target.getAttribute('data-size')
     let direction = parseInt(rotateButton.getAttribute('data-direction'), 10)
 
-    if (direction === Ship.DIRECTOIN_VERTICAL) {
-        e.target.classList.add('vertical')
-    } else {
-        e.target.classList.remove('vertical')
-    }
+    // if (direction === Ship.DIRECTOIN_VERTICAL) {
+    //     e.target.classList.add('vertical')
+    // } else {
+    //     e.target.classList.remove('vertical')
+    // }
 
     return shipLength
 }
