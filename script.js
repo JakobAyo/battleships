@@ -194,7 +194,7 @@ Game.prototype.shoot = function(x, y, targetPlayer) {
 }
 
 Game.prototype.cycleTurns = function() {
-    let shotCoordintes = this.computer.shootCoordinates()
+    let shotCoordintes = this.computer.shootShipDown()
     let xTarget = shotCoordintes[0]
     let yTarget = shotCoordintes[1]
 
@@ -221,17 +221,6 @@ Computer.prototype.init = function() {
     }
 }
 
-// Computer.prototype.shootShipDown = function() {
-//     this.shipDetected = false
-//     let xHitShip = 
-
-//     let maxGridSize = 10
-
-//     if (this.shipDetected) {
-        
-//     }
-// }
-
 Computer.prototype.shootCoordinates = function() {
     let [x, y] = [generateRandomNumber(0, 9), generateRandomNumber(0, 9)]
 
@@ -249,6 +238,37 @@ Computer.prototype.shootCoordinates = function() {
     let shotCell = [x, y]
     console.log(shotCell)
     return shotCell
+}
+
+// TODO figure out an Algorithm to shoot down the ship when detected
+Computer.prototype.shootShipDown = function() {
+    this.shipDetected = false
+    let xHit, yHit
+    let shotCell = []
+    
+    if (this.shipDetected) {
+        for (let x = 0; x < 10; x++){
+            for (let y = 0; y < 10; y++){
+                if (this.targetCells[x][y] = CONST.HIT){
+                    [xHit, yHit] = [x, y]
+                    break
+                }
+            }
+
+        }
+        if (this.isLegalCell(xHit + 1, yHit) && this.targetCells[x + 1][y] === CONST.EMTPY){
+            shotCell.push(...[xHit + 1, yHit])
+        }
+    }
+    return this.shootCoordinates()
+}
+
+Computer.prototype.isLegalCell = function(x, y){
+    if (x < 10 && y < 10 && x >= 0 && y >= 0){
+        return true
+    }else {
+        return false
+    }
 }
 
 // Create a Grid 
@@ -280,7 +300,7 @@ Grid.prototype.dragShipOver = function(e) {
         if(this.isShipPlaceable(x, y, direction)) {
             for (let i = 0; i < size; i++) {
                 let cell = document.querySelector(`.grid-cell${x}-${y}`)            
-                cell.classList.toggle('ship')
+                cell.classList.toggle('ship-cell')
     
                 if(direction === 0) {
                     y++
