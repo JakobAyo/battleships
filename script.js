@@ -194,8 +194,9 @@ Game.prototype.shoot = function(x, y, targetPlayer) {
 }
 
 Game.prototype.cycleTurns = function() {
-    let xTarget = this.computer.shootCoordinates()[0]
-    let yTarget = this.computer.shootCoordinates()[1]
+    let shotCoordintes = this.computer.shootCoordinates()
+    let xTarget = shotCoordintes[0]
+    let yTarget = shotCoordintes[1]
 
     if (!this.humanTurn){
         this.shoot(xTarget, yTarget, CONST.HUMAN_PLAYER)
@@ -220,6 +221,17 @@ Computer.prototype.init = function() {
     }
 }
 
+// Computer.prototype.shootShipDown = function() {
+//     this.shipDetected = false
+//     let xHitShip = 
+
+//     let maxGridSize = 10
+
+//     if (this.shipDetected) {
+        
+//     }
+// }
+
 Computer.prototype.shootCoordinates = function() {
     let [x, y] = [generateRandomNumber(0, 9), generateRandomNumber(0, 9)]
 
@@ -229,11 +241,13 @@ Computer.prototype.shootCoordinates = function() {
     
     if (this.humanGridCells[x][y] === CONST.SHIP) {
         this.targetCells[x][y] = CONST.HIT
+        this.shipDetected = true
     } else {
         this.targetCells[x][y] = CONST.MISS
     }
 
     let shotCell = [x, y]
+    console.log(shotCell)
     return shotCell
 }
 
@@ -377,7 +391,9 @@ Grid.prototype.isSunk = function(ship, targetPlayer) {
         this.cells[xPosition[i]][yPosition[i]] = CONST.SUNK
     }
     this.updateCellCSS(targetPlayer)
-    this.appendShipChild(xPosition[0], yPosition[0], ship)
+    if (targetPlayer === CONST.COPMUTER_PLAYER) {
+        this.appendShipChild(xPosition[0], yPosition[0], ship)
+    }
 }
 
 

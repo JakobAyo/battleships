@@ -97,14 +97,18 @@ h2 {
     height: 3.5em;
 }
 
-
     .human-player .miss, .human-player .ship {
         background-color: var(--light-grid-color);
         filter: none;
     }
 
-    .human-player .hit {
-        background-color: red;
+    .human.player .hit:after {
+        position: relative;
+        content: "\d7";
+        color: white;
+        font-size: 3.5rem;
+        left: 22%;
+        bottom: 6%;
     }
 
     .cpu-player .miss{
