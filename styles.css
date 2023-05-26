@@ -1,9 +1,10 @@
 :root {
-    --dark-blue-color: #142850;
+    --dark-blue-color: #29486b;
     --dark-grid-color: #27496D;
     --dark-cell-color: #3173B0;
     --light-grid-color: #0C7B93;
     --light-cell-color: #1DA7CA;
+    --hit-ship-color: #B32C2C;
 }
 
 * {
@@ -59,7 +60,7 @@ h2 {
     left: 50%;
     transform: translate(-50%,-50%);
 
-    border-radius: 1rem;
+    border-radius: 1.4rem;
     padding: .2rem;
     padding-left: .27rem;
 
@@ -96,9 +97,14 @@ h2 {
     height: 3.5em;
 }
 
-    .human-player .miss, .human-player .ship{
+
+    .human-player .miss, .human-player .ship {
         background-color: var(--light-grid-color);
         filter: none;
+    }
+
+    .human-player .hit {
+        background-color: red;
     }
 
     .cpu-player .miss{
@@ -108,11 +114,15 @@ h2 {
     }
 
     .cpu-player .hit{
-        background-color: red;
+        background-color: var(--hit-ship-color);
+        pointer-events: none;
     }
 
+
     .cpu-player .sunk{
-        background-color: black;
+        background-color: var(--dark-grid-color);
+        pointer-events: none;
+        filter: none;
     }
 
     .cpu-player .grid-cell:hover {
@@ -122,7 +132,6 @@ h2 {
 
     .cpu-player .grid-cell:hover, .cpu-player:hover {
         cursor: url('images/target1.png') 24 24, crosshair;
-        
     }
 
 
