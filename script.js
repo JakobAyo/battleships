@@ -17,6 +17,8 @@ CONST.MISS = 2
 CONST.HIT = 3
 CONST.SUNK = 4
 
+CONST.GRID_SIZE = 10
+
 CONST.TOTAL_HITS = 17
 
 const rotateButton = document.getElementById('rotate-button')
@@ -128,7 +130,7 @@ function Game() {
 
     this.gameStartAllowed = false
 
-    this.computer = new Computer(this.humanGrid.cells)
+    this.computer = new Computer()
     this.humanTurn = true
 }
 
@@ -177,6 +179,11 @@ Game.prototype.shoot = function(x, y, targetPlayer) {
         if (ship.getCoordinates(x, y) && targetGrid.cells[x][y] !== CONST.HIT){
             ship.incrementdamage()
             targetGrid.isHit(x, y, targetPlayer)
+
+            if (targetPlayer === CONST.HUMAN_PLAYER){
+                this.computer.updateProbabilityAfterHit(x, y)
+            }
+
             targetStats.incrementShotsTaken()
             selfStats.incrementShotsHit()
             selfStats.hasWonGame(selfPlayer)
@@ -184,91 +191,140 @@ Game.prototype.shoot = function(x, y, targetPlayer) {
             if (ship.isSunk()){
                 ship.sinkShip()
                 targetGrid.isSunk(ship, targetPlayer)
+                if (targetPlayer === CONST.HUMAN_PLAYER){
+                    this.computer.updateProbabilityAfterSunk()
+                }
             }
             foundShip = true
         } 
     })
     if (!foundShip){
         targetGrid.isMiss(x, y, targetPlayer)
+
+            if (targetPlayer === CONST.HUMAN_PLAYER) {
+                this.computer.updateProbabilityAfterMiss(x, y)
+                this.xShipLocation = x
+                this.yShipLocation = y
+            }
     }
 }
 
 Game.prototype.cycleTurns = function() {
-    let shotCoordintes = this.computer.shootShipDown()
-    let xTarget = shotCoordintes[0]
-    let yTarget = shotCoordintes[1]
-
     if (!this.humanTurn){
+        const [xTarget, yTarget] = this.computer.selectNextTarget()
         this.shoot(xTarget, yTarget, CONST.HUMAN_PLAYER)
+
+        console.log(this.computer.probabilityGrid)
         this.humanTurn = true
     } 
 
 }
 // TODO make the computer shoot ships down
-function Computer(humanGridCells) {
-    this.humanGridCells = humanGridCells
-    this.targetCells = []
-    this.init()
-}
-
-Computer.prototype.init = function() {
-    for (let x = 0; x < 10; x++) {
-        let row = []
-        this.targetCells[x] = row
-        for (let y = 0; y < 10; y++) {
-            row.push(CONST.EMTPY)
-        }
-    }
-}
-
-Computer.prototype.shootCoordinates = function() {
-    let [x, y] = [generateRandomNumber(0, 9), generateRandomNumber(0, 9)]
-
-    while(this.targetCells[x][y] !== CONST.EMTPY){
-        [x, y] = [generateRandomNumber(0, 9), generateRandomNumber(0, 9)]
-    }
+function Computer() {
     
-    if (this.humanGridCells[x][y] === CONST.SHIP) {
-        this.targetCells[x][y] = CONST.HIT
-        this.shipDetected = true
-    } else {
-        this.targetCells[x][y] = CONST.MISS
-    }
-
-    let shotCell = [x, y]
-    console.log(shotCell)
-    return shotCell
+    this.probabilityGrid = Array.from({length: 10}, () => Array(10).fill(0.1)) //set the Prob to 0.1 -> Random
+    
+    this.shipLocation = []
 }
 
-// TODO figure out an Algorithm to shoot down the ship when detected
-Computer.prototype.shootShipDown = function() {
-    this.shipDetected = false
-    let xHit, yHit
-    let shotCell = []
-    
-    if (this.shipDetected) {
-        for (let x = 0; x < 10; x++){
-            for (let y = 0; y < 10; y++){
-                if (this.targetCells[x][y] = CONST.HIT){
-                    [xHit, yHit] = [x, y]
-                    break
-                }
+Computer.prototype.updateProbabilityAfterHit = function(x, y) {
+    this.probabilityGrid[x][y] = 0
+
+    this.shipLocation.push([x, y])
+    let [xFirst, yFirst] = [this.shipLocation[0][0], this.shipLocation[0][1]]
+
+    let nearbyCells = [
+        [x - 1, y],
+        [x + 1, y],
+        [x, y - 1],
+        [x, y + 1]
+    ]
+
+    if (this.shipLocation.length === 1) {
+        nearbyCells.forEach(([cellX, cellY]) => {
+            if(cellX >= 0 && cellX < CONST.GRID_SIZE && cellY >= 0 && cellY < CONST.GRID_SIZE) {
+                this.probabilityGrid[cellX][cellY] *= 2.5 // increase the probability
             }
-
-        }
-        if (this.isLegalCell(xHit + 1, yHit) && this.targetCells[x + 1][y] === CONST.EMTPY){
-            shotCell.push(...[xHit + 1, yHit])
-        }
+        })  
     }
-    return this.shootCoordinates()
+    
+    if (this.shipLocation.length > 1) {
+        if (xFirst === x){
+            nearbyCells = [
+                [xFirst, yFirst + 1],
+                [xFirst, yFirst - 1],
+                [xFirst, y + 1],
+                [xFirst, y - 1]
+            ]
+
+            nearbyCells.forEach(([cellX, cellY]) => {
+                if(cellX >= 0 && cellX < CONST.GRID_SIZE && cellY >= 0 && cellY < CONST.GRID_SIZE){
+                    this.probabilityGrid[cellX][cellY] *= 5
+                }
+            })
+        } else if (yFirst === y) {
+            nearbyCells = [
+                [xFirst + 1, yFirst],
+                [xFirst - 1, yFirst],
+                [x + 1, yFirst],
+                [x - 1, yFirst]
+            ]
+
+            nearbyCells.forEach(([cellX, cellY]) => {
+            if(cellX >= 0 && cellX < CONST.GRID_SIZE && cellY >= 0 && cellY < CONST.GRID_SIZE){
+                this.probabilityGrid[cellX][cellY] *= 5
+            }
+        }
+    )}
+}
 }
 
-Computer.prototype.isLegalCell = function(x, y){
-    if (x < 10 && y < 10 && x >= 0 && y >= 0){
-        return true
-    }else {
-        return false
+Computer.prototype.updateProbabilityAfterMiss = function(x, y){
+    this.probabilityGrid[x][y] = 0
+
+    const nearbyCells = [
+        [x - 1, y],
+        [x + 1, y],
+        [x, y - 1],
+        [x, y + 1]
+    ]
+
+    nearbyCells.forEach(([cellX, cellY]) => {
+        if(cellX >= 0 && cellX < CONST.GRID_SIZE && cellY >= 0 && cellY < CONST.GRID_SIZE) {
+            this.probabilityGrid[cellX][cellY] *= 0.7
+        }
+    } 
+)}
+
+Computer.prototype.updateProbabilityAfterSunk = function() {
+    this.shipLocation = []
+
+    for (let x = 0; x < CONST.GRID_SIZE; x++) {
+        for (let y = 0; y < CONST.GRID_SIZE; y++){
+            if (this.probabilityGrid[x][y] > 0){
+                this.probabilityGrid[x][y] = 0.1
+            }
+        }
     }
+}
+
+Computer.prototype.selectNextTarget = function() {
+    let maxProbability = -1
+    let maxPorbabilityCells = []
+
+    for (let x = 0; x < CONST.GRID_SIZE; x++){
+        for (let y = 0; y < CONST.GRID_SIZE; y++){
+            if (this.probabilityGrid[x][y] > maxProbability) {
+                maxProbability = this.probabilityGrid[x][y]
+                maxPorbabilityCells = [[x, y]]
+            } else if (this.probabilityGrid[x][y] === maxProbability) {
+                maxPorbabilityCells.push([x, y])
+            }
+        }
+    }
+
+    const randomIndex = Math.floor(Math.random() * maxPorbabilityCells.length)
+    return maxPorbabilityCells[randomIndex]
 }
 
 // Create a Grid 
