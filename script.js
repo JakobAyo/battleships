@@ -23,6 +23,7 @@ CONST.TOTAL_HITS = 17
 
 const rotateButton = document.getElementById('rotate-button')
 const startButton = document.getElementById('start-button')
+const restartButton = document.getElementById('restart-button')
 let humanPlayerGridCells = document.querySelectorAll('.human-player .grid-cell')
 let cpuPlayerGridCells = document.querySelectorAll('.cpu-player .grid-cell')
 let ships = document.querySelectorAll('.ship')
@@ -40,6 +41,12 @@ rotateButton.addEventListener('click', function(e) {
 startButton.addEventListener('click', function() {
     mainGame.startGame()
 })
+
+restartButton.addEventListener('click', function() {
+    window.location.reload()
+    return false    
+})
+
 // Cell Event Listeners
 cpuPlayerGridCells.forEach(function(cell) {
     cell.addEventListener('click', function(e) {
@@ -114,7 +121,12 @@ Stats.prototype.incrementShotsHit = function() {
 Stats.prototype.hasWonGame = function(player) {
     if (this.shotsHit >= CONST.TOTAL_HITS) {
         this.gameWon = true
-        console.log(player + ' Won The Game!')
+
+        let gameWon = document.querySelector('.game-won')
+        gameWon.style.display = 'block'
+
+        let displayWinner = document.querySelector('.winner-text')
+        displayWinner.textContent = `${player} Won The Game`
     }
 }
 
@@ -132,6 +144,7 @@ function Game() {
 
     this.computer = new Computer()
     this.humanTurn = true
+
 }
 
 Game.prototype.startGame = function() {
@@ -144,6 +157,7 @@ Game.prototype.startGame = function() {
         }
         this.gameStartAllowed = true
     }
+    this.computerFleet.placeShipsRandomly()
 }
 
 Game.prototype.rotateShip = function() {
@@ -214,16 +228,13 @@ Game.prototype.cycleTurns = function() {
         const [xTarget, yTarget] = this.computer.selectNextTarget()
         this.shoot(xTarget, yTarget, CONST.HUMAN_PLAYER)
 
-        console.log(this.computer.probabilityGrid)
         this.humanTurn = true
     } 
 
 }
 // TODO make the computer shoot ships down
 function Computer() {
-    
     this.probabilityGrid = Array.from({length: 10}, () => Array(10).fill(0.1)) //set the Prob to 0.1 -> Random
-    
     this.shipLocation = []
 }
 
@@ -596,5 +607,5 @@ function generateRandomNumber(min, max) {
 }
 
 var mainGame = new Game()
-mainGame.computerFleet.placeShipsRandomly()
+
 
