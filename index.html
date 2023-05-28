@@ -1,263 +1,258 @@
 <!DOCTYPE html>
 <html lang="de">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="data:,">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
-    <link rel="icon" href="logo.png" type="image/x-icon">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="data:," />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Raleway:wght@900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="icon" href="images/logo.png" type="image/x-icon" />
     <title>Yacoub Ayo</title>
-</head> 
-<body>
+  </head>
+  <body>
     <div class="container">
-       
-        <div class="game-won">
-            <div class="winner-container">
-                <span class="winner-text"></span>
-                <button id="restart-button">Play Again</button>
-            </div>
+      <div class="game-won">
+        <div class="winner-container">
+          <span class="winner-text"></span>
+          <button id="restart-button">Play Again</button>
+        </div>
+      </div>
+
+      <h1>Battleships</h1>
+      <div class="game-container">
+        <div class="grid-container human-player">
+          <h2>Your Fleet</h2>
+          <div class="grid human-player">
+            <div data-x="0" data-y="0" class="grid-cell grid-cell0-0"></div>
+            <div data-x="0" data-y="1" class="grid-cell grid-cell0-1"></div>
+            <div data-x="0" data-y="2" class="grid-cell grid-cell0-2"></div>
+            <div data-x="0" data-y="3" class="grid-cell grid-cell0-3"></div>
+            <div data-x="0" data-y="4" class="grid-cell grid-cell0-4"></div>
+            <div data-x="0" data-y="5" class="grid-cell grid-cell0-5"></div>
+            <div data-x="0" data-y="6" class="grid-cell grid-cell0-6"></div>
+            <div data-x="0" data-y="7" class="grid-cell grid-cell0-7"></div>
+            <div data-x="0" data-y="8" class="grid-cell grid-cell0-8"></div>
+            <div data-x="0" data-y="9" class="grid-cell grid-cell0-9"></div>
+            <div data-x="1" data-y="0" class="grid-cell grid-cell1-0"></div>
+            <div data-x="1" data-y="1" class="grid-cell grid-cell1-1"></div>
+            <div data-x="1" data-y="2" class="grid-cell grid-cell1-2"></div>
+            <div data-x="1" data-y="3" class="grid-cell grid-cell1-3"></div>
+            <div data-x="1" data-y="4" class="grid-cell grid-cell1-4"></div>
+            <div data-x="1" data-y="5" class="grid-cell grid-cell1-5"></div>
+            <div data-x="1" data-y="6" class="grid-cell grid-cell1-6"></div>
+            <div data-x="1" data-y="7" class="grid-cell grid-cell1-7"></div>
+            <div data-x="1" data-y="8" class="grid-cell grid-cell1-8"></div>
+            <div data-x="1" data-y="9" class="grid-cell grid-cell1-9"></div>
+            <div data-x="2" data-y="0" class="grid-cell grid-cell2-0"></div>
+            <div data-x="2" data-y="1" class="grid-cell grid-cell2-1"></div>
+            <div data-x="2" data-y="2" class="grid-cell grid-cell2-2"></div>
+            <div data-x="2" data-y="3" class="grid-cell grid-cell2-3"></div>
+            <div data-x="2" data-y="4" class="grid-cell grid-cell2-4"></div>
+            <div data-x="2" data-y="5" class="grid-cell grid-cell2-5"></div>
+            <div data-x="2" data-y="6" class="grid-cell grid-cell2-6"></div>
+            <div data-x="2" data-y="7" class="grid-cell grid-cell2-7"></div>
+            <div data-x="2" data-y="8" class="grid-cell grid-cell2-8"></div>
+            <div data-x="2" data-y="9" class="grid-cell grid-cell2-9"></div>
+            <div data-x="3" data-y="0" class="grid-cell grid-cell3-0"></div>
+            <div data-x="3" data-y="1" class="grid-cell grid-cell3-1"></div>
+            <div data-x="3" data-y="2" class="grid-cell grid-cell3-2"></div>
+            <div data-x="3" data-y="3" class="grid-cell grid-cell3-3"></div>
+            <div data-x="3" data-y="4" class="grid-cell grid-cell3-4"></div>
+            <div data-x="3" data-y="5" class="grid-cell grid-cell3-5"></div>
+            <div data-x="3" data-y="6" class="grid-cell grid-cell3-6"></div>
+            <div data-x="3" data-y="7" class="grid-cell grid-cell3-7"></div>
+            <div data-x="3" data-y="8" class="grid-cell grid-cell3-8"></div>
+            <div data-x="3" data-y="9" class="grid-cell grid-cell3-9"></div>
+            <div data-x="4" data-y="0" class="grid-cell grid-cell4-0"></div>
+            <div data-x="4" data-y="1" class="grid-cell grid-cell4-1"></div>
+            <div data-x="4" data-y="2" class="grid-cell grid-cell4-2"></div>
+            <div data-x="4" data-y="3" class="grid-cell grid-cell4-3"></div>
+            <div data-x="4" data-y="4" class="grid-cell grid-cell4-4"></div>
+            <div data-x="4" data-y="5" class="grid-cell grid-cell4-5"></div>
+            <div data-x="4" data-y="6" class="grid-cell grid-cell4-6"></div>
+            <div data-x="4" data-y="7" class="grid-cell grid-cell4-7"></div>
+            <div data-x="4" data-y="8" class="grid-cell grid-cell4-8"></div>
+            <div data-x="4" data-y="9" class="grid-cell grid-cell4-9"></div>
+            <div data-x="5" data-y="0" class="grid-cell grid-cell5-0"></div>
+            <div data-x="5" data-y="1" class="grid-cell grid-cell5-1"></div>
+            <div data-x="5" data-y="2" class="grid-cell grid-cell5-2"></div>
+            <div data-x="5" data-y="3" class="grid-cell grid-cell5-3"></div>
+            <div data-x="5" data-y="4" class="grid-cell grid-cell5-4"></div>
+            <div data-x="5" data-y="5" class="grid-cell grid-cell5-5"></div>
+            <div data-x="5" data-y="6" class="grid-cell grid-cell5-6"></div>
+            <div data-x="5" data-y="7" class="grid-cell grid-cell5-7"></div>
+            <div data-x="5" data-y="8" class="grid-cell grid-cell5-8"></div>
+            <div data-x="5" data-y="9" class="grid-cell grid-cell5-9"></div>
+            <div data-x="6" data-y="0" class="grid-cell grid-cell6-0"></div>
+            <div data-x="6" data-y="1" class="grid-cell grid-cell6-1"></div>
+            <div data-x="6" data-y="2" class="grid-cell grid-cell6-2"></div>
+            <div data-x="6" data-y="3" class="grid-cell grid-cell6-3"></div>
+            <div data-x="6" data-y="4" class="grid-cell grid-cell6-4"></div>
+            <div data-x="6" data-y="5" class="grid-cell grid-cell6-5"></div>
+            <div data-x="6" data-y="6" class="grid-cell grid-cell6-6"></div>
+            <div data-x="6" data-y="7" class="grid-cell grid-cell6-7"></div>
+            <div data-x="6" data-y="8" class="grid-cell grid-cell6-8"></div>
+            <div data-x="6" data-y="9" class="grid-cell grid-cell6-9"></div>
+            <div data-x="7" data-y="0" class="grid-cell grid-cell7-0"></div>
+            <div data-x="7" data-y="1" class="grid-cell grid-cell7-1"></div>
+            <div data-x="7" data-y="2" class="grid-cell grid-cell7-2"></div>
+            <div data-x="7" data-y="3" class="grid-cell grid-cell7-3"></div>
+            <div data-x="7" data-y="4" class="grid-cell grid-cell7-4"></div>
+            <div data-x="7" data-y="5" class="grid-cell grid-cell7-5"></div>
+            <div data-x="7" data-y="6" class="grid-cell grid-cell7-6"></div>
+            <div data-x="7" data-y="7" class="grid-cell grid-cell7-7"></div>
+            <div data-x="7" data-y="8" class="grid-cell grid-cell7-8"></div>
+            <div data-x="7" data-y="9" class="grid-cell grid-cell7-9"></div>
+            <div data-x="8" data-y="0" class="grid-cell grid-cell8-0"></div>
+            <div data-x="8" data-y="1" class="grid-cell grid-cell8-1"></div>
+            <div data-x="8" data-y="2" class="grid-cell grid-cell8-2"></div>
+            <div data-x="8" data-y="3" class="grid-cell grid-cell8-3"></div>
+            <div data-x="8" data-y="4" class="grid-cell grid-cell8-4"></div>
+            <div data-x="8" data-y="5" class="grid-cell grid-cell8-5"></div>
+            <div data-x="8" data-y="6" class="grid-cell grid-cell8-6"></div>
+            <div data-x="8" data-y="7" class="grid-cell grid-cell8-7"></div>
+            <div data-x="8" data-y="8" class="grid-cell grid-cell8-8"></div>
+            <div data-x="8" data-y="9" class="grid-cell grid-cell8-9"></div>
+            <div data-x="9" data-y="0" class="grid-cell grid-cell9-0"></div>
+            <div data-x="9" data-y="1" class="grid-cell grid-cell9-1"></div>
+            <div data-x="9" data-y="2" class="grid-cell grid-cell9-2"></div>
+            <div data-x="9" data-y="3" class="grid-cell grid-cell9-3"></div>
+            <div data-x="9" data-y="4" class="grid-cell grid-cell9-4"></div>
+            <div data-x="9" data-y="5" class="grid-cell grid-cell9-5"></div>
+            <div data-x="9" data-y="6" class="grid-cell grid-cell9-6"></div>
+            <div data-x="9" data-y="7" class="grid-cell grid-cell9-7"></div>
+            <div data-x="9" data-y="8" class="grid-cell grid-cell9-8"></div>
+            <div data-x="9" data-y="9" class="grid-cell grid-cell9-9"></div>
+          </div>
         </div>
 
-        <h1>
-            Battleships
-        </h1>
-        <div class="game-container"> 
-            <div class="grid-container human-player">
-                <h2>Your Fleet</h2>
-                <div class="grid human-player">
-                    <div data-x="0" data-y="0" class="grid-cell grid-cell0-0"></div>
-                    <div data-x="0" data-y="1" class="grid-cell grid-cell0-1"></div>
-                    <div data-x="0" data-y="2" class="grid-cell grid-cell0-2"></div>
-                    <div data-x="0" data-y="3" class="grid-cell grid-cell0-3"></div>
-                    <div data-x="0" data-y="4" class="grid-cell grid-cell0-4"></div>
-                    <div data-x="0" data-y="5" class="grid-cell grid-cell0-5"></div>
-                    <div data-x="0" data-y="6" class="grid-cell grid-cell0-6"></div>
-                    <div data-x="0" data-y="7" class="grid-cell grid-cell0-7"></div>
-                    <div data-x="0" data-y="8" class="grid-cell grid-cell0-8"></div>
-                    <div data-x="0" data-y="9" class="grid-cell grid-cell0-9"></div>
-                    <div data-x="1" data-y="0" class="grid-cell grid-cell1-0"></div>
-                    <div data-x="1" data-y="1" class="grid-cell grid-cell1-1"></div>
-                    <div data-x="1" data-y="2" class="grid-cell grid-cell1-2"></div>
-                    <div data-x="1" data-y="3" class="grid-cell grid-cell1-3"></div>
-                    <div data-x="1" data-y="4" class="grid-cell grid-cell1-4"></div>
-                    <div data-x="1" data-y="5" class="grid-cell grid-cell1-5"></div>
-                    <div data-x="1" data-y="6" class="grid-cell grid-cell1-6"></div>
-                    <div data-x="1" data-y="7" class="grid-cell grid-cell1-7"></div>
-                    <div data-x="1" data-y="8" class="grid-cell grid-cell1-8"></div>
-                    <div data-x="1" data-y="9" class="grid-cell grid-cell1-9"></div>
-                    <div data-x="2" data-y="0" class="grid-cell grid-cell2-0"></div>
-                    <div data-x="2" data-y="1" class="grid-cell grid-cell2-1"></div>
-                    <div data-x="2" data-y="2" class="grid-cell grid-cell2-2"></div>
-                    <div data-x="2" data-y="3" class="grid-cell grid-cell2-3"></div>
-                    <div data-x="2" data-y="4" class="grid-cell grid-cell2-4"></div>
-                    <div data-x="2" data-y="5" class="grid-cell grid-cell2-5"></div>
-                    <div data-x="2" data-y="6" class="grid-cell grid-cell2-6"></div>
-                    <div data-x="2" data-y="7" class="grid-cell grid-cell2-7"></div>
-                    <div data-x="2" data-y="8" class="grid-cell grid-cell2-8"></div>
-                    <div data-x="2" data-y="9" class="grid-cell grid-cell2-9"></div>
-                    <div data-x="3" data-y="0" class="grid-cell grid-cell3-0"></div>
-                    <div data-x="3" data-y="1" class="grid-cell grid-cell3-1"></div>
-                    <div data-x="3" data-y="2" class="grid-cell grid-cell3-2"></div>
-                    <div data-x="3" data-y="3" class="grid-cell grid-cell3-3"></div>
-                    <div data-x="3" data-y="4" class="grid-cell grid-cell3-4"></div>
-                    <div data-x="3" data-y="5" class="grid-cell grid-cell3-5"></div>
-                    <div data-x="3" data-y="6" class="grid-cell grid-cell3-6"></div>
-                    <div data-x="3" data-y="7" class="grid-cell grid-cell3-7"></div>
-                    <div data-x="3" data-y="8" class="grid-cell grid-cell3-8"></div>
-                    <div data-x="3" data-y="9" class="grid-cell grid-cell3-9"></div>
-                    <div data-x="4" data-y="0" class="grid-cell grid-cell4-0"></div>
-                    <div data-x="4" data-y="1" class="grid-cell grid-cell4-1"></div>
-                    <div data-x="4" data-y="2" class="grid-cell grid-cell4-2"></div>
-                    <div data-x="4" data-y="3" class="grid-cell grid-cell4-3"></div>
-                    <div data-x="4" data-y="4" class="grid-cell grid-cell4-4"></div>
-                    <div data-x="4" data-y="5" class="grid-cell grid-cell4-5"></div>
-                    <div data-x="4" data-y="6" class="grid-cell grid-cell4-6"></div>
-                    <div data-x="4" data-y="7" class="grid-cell grid-cell4-7"></div>
-                    <div data-x="4" data-y="8" class="grid-cell grid-cell4-8"></div>
-                    <div data-x="4" data-y="9" class="grid-cell grid-cell4-9"></div>
-                    <div data-x="5" data-y="0" class="grid-cell grid-cell5-0"></div>
-                    <div data-x="5" data-y="1" class="grid-cell grid-cell5-1"></div>
-                    <div data-x="5" data-y="2" class="grid-cell grid-cell5-2"></div>
-                    <div data-x="5" data-y="3" class="grid-cell grid-cell5-3"></div>
-                    <div data-x="5" data-y="4" class="grid-cell grid-cell5-4"></div>
-                    <div data-x="5" data-y="5" class="grid-cell grid-cell5-5"></div>
-                    <div data-x="5" data-y="6" class="grid-cell grid-cell5-6"></div>
-                    <div data-x="5" data-y="7" class="grid-cell grid-cell5-7"></div>
-                    <div data-x="5" data-y="8" class="grid-cell grid-cell5-8"></div>
-                    <div data-x="5" data-y="9" class="grid-cell grid-cell5-9"></div>
-                    <div data-x="6" data-y="0" class="grid-cell grid-cell6-0"></div>
-                    <div data-x="6" data-y="1" class="grid-cell grid-cell6-1"></div>
-                    <div data-x="6" data-y="2" class="grid-cell grid-cell6-2"></div>
-                    <div data-x="6" data-y="3" class="grid-cell grid-cell6-3"></div>
-                    <div data-x="6" data-y="4" class="grid-cell grid-cell6-4"></div>
-                    <div data-x="6" data-y="5" class="grid-cell grid-cell6-5"></div>
-                    <div data-x="6" data-y="6" class="grid-cell grid-cell6-6"></div>
-                    <div data-x="6" data-y="7" class="grid-cell grid-cell6-7"></div>
-                    <div data-x="6" data-y="8" class="grid-cell grid-cell6-8"></div>
-                    <div data-x="6" data-y="9" class="grid-cell grid-cell6-9"></div>
-                    <div data-x="7" data-y="0" class="grid-cell grid-cell7-0"></div>
-                    <div data-x="7" data-y="1" class="grid-cell grid-cell7-1"></div>
-                    <div data-x="7" data-y="2" class="grid-cell grid-cell7-2"></div>
-                    <div data-x="7" data-y="3" class="grid-cell grid-cell7-3"></div>
-                    <div data-x="7" data-y="4" class="grid-cell grid-cell7-4"></div>
-                    <div data-x="7" data-y="5" class="grid-cell grid-cell7-5"></div>
-                    <div data-x="7" data-y="6" class="grid-cell grid-cell7-6"></div>
-                    <div data-x="7" data-y="7" class="grid-cell grid-cell7-7"></div>
-                    <div data-x="7" data-y="8" class="grid-cell grid-cell7-8"></div>
-                    <div data-x="7" data-y="9" class="grid-cell grid-cell7-9"></div>
-                    <div data-x="8" data-y="0" class="grid-cell grid-cell8-0"></div>
-                    <div data-x="8" data-y="1" class="grid-cell grid-cell8-1"></div>
-                    <div data-x="8" data-y="2" class="grid-cell grid-cell8-2"></div>
-                    <div data-x="8" data-y="3" class="grid-cell grid-cell8-3"></div>
-                    <div data-x="8" data-y="4" class="grid-cell grid-cell8-4"></div>
-                    <div data-x="8" data-y="5" class="grid-cell grid-cell8-5"></div>
-                    <div data-x="8" data-y="6" class="grid-cell grid-cell8-6"></div>
-                    <div data-x="8" data-y="7" class="grid-cell grid-cell8-7"></div>
-                    <div data-x="8" data-y="8" class="grid-cell grid-cell8-8"></div>
-                    <div data-x="8" data-y="9" class="grid-cell grid-cell8-9"></div>
-                    <div data-x="9" data-y="0" class="grid-cell grid-cell9-0"></div>
-                    <div data-x="9" data-y="1" class="grid-cell grid-cell9-1"></div>
-                    <div data-x="9" data-y="2" class="grid-cell grid-cell9-2"></div>
-                    <div data-x="9" data-y="3" class="grid-cell grid-cell9-3"></div>
-                    <div data-x="9" data-y="4" class="grid-cell grid-cell9-4"></div>
-                    <div data-x="9" data-y="5" class="grid-cell grid-cell9-5"></div>
-                    <div data-x="9" data-y="6" class="grid-cell grid-cell9-6"></div>
-                    <div data-x="9" data-y="7" class="grid-cell grid-cell9-7"></div>
-                    <div data-x="9" data-y="8" class="grid-cell grid-cell9-8"></div>
-                    <div data-x="9" data-y="9" class="grid-cell grid-cell9-9"></div>
-                </div>
-            </div>
-
-            <div class="buttons">
-                <button id="start-button">Start</button>
-                <button id="rotate-button" data-direction="0">Rotate</button>
-            </div>
-
-            <div class="grid-container cpu-player">
-                <h2>Enemy Fleet</h2>
-                <div class="grid cpu-player">
-                    <div data-x="0" data-y="0" class="grid-cell grid-cell0-0"></div>
-                    <div data-x="0" data-y="1" class="grid-cell grid-cell0-1"></div>
-                    <div data-x="0" data-y="2" class="grid-cell grid-cell0-2"></div>
-                    <div data-x="0" data-y="3" class="grid-cell grid-cell0-3"></div>
-                    <div data-x="0" data-y="4" class="grid-cell grid-cell0-4"></div>
-                    <div data-x="0" data-y="5" class="grid-cell grid-cell0-5"></div>
-                    <div data-x="0" data-y="6" class="grid-cell grid-cell0-6"></div>
-                    <div data-x="0" data-y="7" class="grid-cell grid-cell0-7"></div>
-                    <div data-x="0" data-y="8" class="grid-cell grid-cell0-8"></div>
-                    <div data-x="0" data-y="9" class="grid-cell grid-cell0-9"></div>
-                    <div data-x="1" data-y="0" class="grid-cell grid-cell1-0"></div>
-                    <div data-x="1" data-y="1" class="grid-cell grid-cell1-1"></div>
-                    <div data-x="1" data-y="2" class="grid-cell grid-cell1-2"></div>
-                    <div data-x="1" data-y="3" class="grid-cell grid-cell1-3"></div>
-                    <div data-x="1" data-y="4" class="grid-cell grid-cell1-4"></div>
-                    <div data-x="1" data-y="5" class="grid-cell grid-cell1-5"></div>
-                    <div data-x="1" data-y="6" class="grid-cell grid-cell1-6"></div>
-                    <div data-x="1" data-y="7" class="grid-cell grid-cell1-7"></div>
-                    <div data-x="1" data-y="8" class="grid-cell grid-cell1-8"></div>
-                    <div data-x="1" data-y="9" class="grid-cell grid-cell1-9"></div>
-                    <div data-x="2" data-y="0" class="grid-cell grid-cell2-0"></div>
-                    <div data-x="2" data-y="1" class="grid-cell grid-cell2-1"></div>
-                    <div data-x="2" data-y="2" class="grid-cell grid-cell2-2"></div>
-                    <div data-x="2" data-y="3" class="grid-cell grid-cell2-3"></div>
-                    <div data-x="2" data-y="4" class="grid-cell grid-cell2-4"></div>
-                    <div data-x="2" data-y="5" class="grid-cell grid-cell2-5"></div>
-                    <div data-x="2" data-y="6" class="grid-cell grid-cell2-6"></div>
-                    <div data-x="2" data-y="7" class="grid-cell grid-cell2-7"></div>
-                    <div data-x="2" data-y="8" class="grid-cell grid-cell2-8"></div>
-                    <div data-x="2" data-y="9" class="grid-cell grid-cell2-9"></div>
-                    <div data-x="3" data-y="0" class="grid-cell grid-cell3-0"></div>
-                    <div data-x="3" data-y="1" class="grid-cell grid-cell3-1"></div>
-                    <div data-x="3" data-y="2" class="grid-cell grid-cell3-2"></div>
-                    <div data-x="3" data-y="3" class="grid-cell grid-cell3-3"></div>
-                    <div data-x="3" data-y="4" class="grid-cell grid-cell3-4"></div>
-                    <div data-x="3" data-y="5" class="grid-cell grid-cell3-5"></div>
-                    <div data-x="3" data-y="6" class="grid-cell grid-cell3-6"></div>
-                    <div data-x="3" data-y="7" class="grid-cell grid-cell3-7"></div>
-                    <div data-x="3" data-y="8" class="grid-cell grid-cell3-8"></div>
-                    <div data-x="3" data-y="9" class="grid-cell grid-cell3-9"></div>
-                    <div data-x="4" data-y="0" class="grid-cell grid-cell4-0"></div>
-                    <div data-x="4" data-y="1" class="grid-cell grid-cell4-1"></div>
-                    <div data-x="4" data-y="2" class="grid-cell grid-cell4-2"></div>
-                    <div data-x="4" data-y="3" class="grid-cell grid-cell4-3"></div>
-                    <div data-x="4" data-y="4" class="grid-cell grid-cell4-4"></div>
-                    <div data-x="4" data-y="5" class="grid-cell grid-cell4-5"></div>
-                    <div data-x="4" data-y="6" class="grid-cell grid-cell4-6"></div>
-                    <div data-x="4" data-y="7" class="grid-cell grid-cell4-7"></div>
-                    <div data-x="4" data-y="8" class="grid-cell grid-cell4-8"></div>
-                    <div data-x="4" data-y="9" class="grid-cell grid-cell4-9"></div>
-                    <div data-x="5" data-y="0" class="grid-cell grid-cell5-0"></div>
-                    <div data-x="5" data-y="1" class="grid-cell grid-cell5-1"></div>
-                    <div data-x="5" data-y="2" class="grid-cell grid-cell5-2"></div>
-                    <div data-x="5" data-y="3" class="grid-cell grid-cell5-3"></div>
-                    <div data-x="5" data-y="4" class="grid-cell grid-cell5-4"></div>
-                    <div data-x="5" data-y="5" class="grid-cell grid-cell5-5"></div>
-                    <div data-x="5" data-y="6" class="grid-cell grid-cell5-6"></div>
-                    <div data-x="5" data-y="7" class="grid-cell grid-cell5-7"></div>
-                    <div data-x="5" data-y="8" class="grid-cell grid-cell5-8"></div>
-                    <div data-x="5" data-y="9" class="grid-cell grid-cell5-9"></div>
-                    <div data-x="6" data-y="0" class="grid-cell grid-cell6-0"></div>
-                    <div data-x="6" data-y="1" class="grid-cell grid-cell6-1"></div>
-                    <div data-x="6" data-y="2" class="grid-cell grid-cell6-2"></div>
-                    <div data-x="6" data-y="3" class="grid-cell grid-cell6-3"></div>
-                    <div data-x="6" data-y="4" class="grid-cell grid-cell6-4"></div>
-                    <div data-x="6" data-y="5" class="grid-cell grid-cell6-5"></div>
-                    <div data-x="6" data-y="6" class="grid-cell grid-cell6-6"></div>
-                    <div data-x="6" data-y="7" class="grid-cell grid-cell6-7"></div>
-                    <div data-x="6" data-y="8" class="grid-cell grid-cell6-8"></div>
-                    <div data-x="6" data-y="9" class="grid-cell grid-cell6-9"></div>
-                    <div data-x="7" data-y="0" class="grid-cell grid-cell7-0"></div>
-                    <div data-x="7" data-y="1" class="grid-cell grid-cell7-1"></div>
-                    <div data-x="7" data-y="2" class="grid-cell grid-cell7-2"></div>
-                    <div data-x="7" data-y="3" class="grid-cell grid-cell7-3"></div>
-                    <div data-x="7" data-y="4" class="grid-cell grid-cell7-4"></div>
-                    <div data-x="7" data-y="5" class="grid-cell grid-cell7-5"></div>
-                    <div data-x="7" data-y="6" class="grid-cell grid-cell7-6"></div>
-                    <div data-x="7" data-y="7" class="grid-cell grid-cell7-7"></div>
-                    <div data-x="7" data-y="8" class="grid-cell grid-cell7-8"></div>
-                    <div data-x="7" data-y="9" class="grid-cell grid-cell7-9"></div>
-                    <div data-x="8" data-y="0" class="grid-cell grid-cell8-0"></div>
-                    <div data-x="8" data-y="1" class="grid-cell grid-cell8-1"></div>
-                    <div data-x="8" data-y="2" class="grid-cell grid-cell8-2"></div>
-                    <div data-x="8" data-y="3" class="grid-cell grid-cell8-3"></div>
-                    <div data-x="8" data-y="4" class="grid-cell grid-cell8-4"></div>
-                    <div data-x="8" data-y="5" class="grid-cell grid-cell8-5"></div>
-                    <div data-x="8" data-y="6" class="grid-cell grid-cell8-6"></div>
-                    <div data-x="8" data-y="7" class="grid-cell grid-cell8-7"></div>
-                    <div data-x="8" data-y="8" class="grid-cell grid-cell8-8"></div>
-                    <div data-x="8" data-y="9" class="grid-cell grid-cell8-9"></div>
-                    <div data-x="9" data-y="0" class="grid-cell grid-cell9-0"></div>
-                    <div data-x="9" data-y="1" class="grid-cell grid-cell9-1"></div>
-                    <div data-x="9" data-y="2" class="grid-cell grid-cell9-2"></div>
-                    <div data-x="9" data-y="3" class="grid-cell grid-cell9-3"></div>
-                    <div data-x="9" data-y="4" class="grid-cell grid-cell9-4"></div>
-                    <div data-x="9" data-y="5" class="grid-cell grid-cell9-5"></div>
-                    <div data-x="9" data-y="6" class="grid-cell grid-cell9-6"></div>
-                    <div data-x="9" data-y="7" class="grid-cell grid-cell9-7"></div>
-                    <div data-x="9" data-y="8" class="grid-cell grid-cell9-8"></div>
-                    <div data-x="9" data-y="9" class="grid-cell grid-cell9-9"></div>
-                </div>
-            </div>
-
-            <div class="ships">
-                <div class="ship destroyer" draggable="true" data-size="2">
-                </div>
-                <div class="ship submarine" draggable="true" data-size="3">
-                </div>
-                <div class="ship cruiser" draggable="true" data-size="3">
-                </div>
-                <div class="ship battleship" draggable="true" data-size="4">
-                </div>
-                <div class="ship carrier" draggable="true" data-size="5">
-                </div>
-            </div>
+        <div class="buttons">
+          <button id="start-button">Start</button>
+          <button id="rotate-button" data-direction="0">Rotate</button>
         </div>
+
+        <div class="grid-container cpu-player">
+          <h2>Enemy Fleet</h2>
+          <div class="grid cpu-player">
+            <div data-x="0" data-y="0" class="grid-cell grid-cell0-0"></div>
+            <div data-x="0" data-y="1" class="grid-cell grid-cell0-1"></div>
+            <div data-x="0" data-y="2" class="grid-cell grid-cell0-2"></div>
+            <div data-x="0" data-y="3" class="grid-cell grid-cell0-3"></div>
+            <div data-x="0" data-y="4" class="grid-cell grid-cell0-4"></div>
+            <div data-x="0" data-y="5" class="grid-cell grid-cell0-5"></div>
+            <div data-x="0" data-y="6" class="grid-cell grid-cell0-6"></div>
+            <div data-x="0" data-y="7" class="grid-cell grid-cell0-7"></div>
+            <div data-x="0" data-y="8" class="grid-cell grid-cell0-8"></div>
+            <div data-x="0" data-y="9" class="grid-cell grid-cell0-9"></div>
+            <div data-x="1" data-y="0" class="grid-cell grid-cell1-0"></div>
+            <div data-x="1" data-y="1" class="grid-cell grid-cell1-1"></div>
+            <div data-x="1" data-y="2" class="grid-cell grid-cell1-2"></div>
+            <div data-x="1" data-y="3" class="grid-cell grid-cell1-3"></div>
+            <div data-x="1" data-y="4" class="grid-cell grid-cell1-4"></div>
+            <div data-x="1" data-y="5" class="grid-cell grid-cell1-5"></div>
+            <div data-x="1" data-y="6" class="grid-cell grid-cell1-6"></div>
+            <div data-x="1" data-y="7" class="grid-cell grid-cell1-7"></div>
+            <div data-x="1" data-y="8" class="grid-cell grid-cell1-8"></div>
+            <div data-x="1" data-y="9" class="grid-cell grid-cell1-9"></div>
+            <div data-x="2" data-y="0" class="grid-cell grid-cell2-0"></div>
+            <div data-x="2" data-y="1" class="grid-cell grid-cell2-1"></div>
+            <div data-x="2" data-y="2" class="grid-cell grid-cell2-2"></div>
+            <div data-x="2" data-y="3" class="grid-cell grid-cell2-3"></div>
+            <div data-x="2" data-y="4" class="grid-cell grid-cell2-4"></div>
+            <div data-x="2" data-y="5" class="grid-cell grid-cell2-5"></div>
+            <div data-x="2" data-y="6" class="grid-cell grid-cell2-6"></div>
+            <div data-x="2" data-y="7" class="grid-cell grid-cell2-7"></div>
+            <div data-x="2" data-y="8" class="grid-cell grid-cell2-8"></div>
+            <div data-x="2" data-y="9" class="grid-cell grid-cell2-9"></div>
+            <div data-x="3" data-y="0" class="grid-cell grid-cell3-0"></div>
+            <div data-x="3" data-y="1" class="grid-cell grid-cell3-1"></div>
+            <div data-x="3" data-y="2" class="grid-cell grid-cell3-2"></div>
+            <div data-x="3" data-y="3" class="grid-cell grid-cell3-3"></div>
+            <div data-x="3" data-y="4" class="grid-cell grid-cell3-4"></div>
+            <div data-x="3" data-y="5" class="grid-cell grid-cell3-5"></div>
+            <div data-x="3" data-y="6" class="grid-cell grid-cell3-6"></div>
+            <div data-x="3" data-y="7" class="grid-cell grid-cell3-7"></div>
+            <div data-x="3" data-y="8" class="grid-cell grid-cell3-8"></div>
+            <div data-x="3" data-y="9" class="grid-cell grid-cell3-9"></div>
+            <div data-x="4" data-y="0" class="grid-cell grid-cell4-0"></div>
+            <div data-x="4" data-y="1" class="grid-cell grid-cell4-1"></div>
+            <div data-x="4" data-y="2" class="grid-cell grid-cell4-2"></div>
+            <div data-x="4" data-y="3" class="grid-cell grid-cell4-3"></div>
+            <div data-x="4" data-y="4" class="grid-cell grid-cell4-4"></div>
+            <div data-x="4" data-y="5" class="grid-cell grid-cell4-5"></div>
+            <div data-x="4" data-y="6" class="grid-cell grid-cell4-6"></div>
+            <div data-x="4" data-y="7" class="grid-cell grid-cell4-7"></div>
+            <div data-x="4" data-y="8" class="grid-cell grid-cell4-8"></div>
+            <div data-x="4" data-y="9" class="grid-cell grid-cell4-9"></div>
+            <div data-x="5" data-y="0" class="grid-cell grid-cell5-0"></div>
+            <div data-x="5" data-y="1" class="grid-cell grid-cell5-1"></div>
+            <div data-x="5" data-y="2" class="grid-cell grid-cell5-2"></div>
+            <div data-x="5" data-y="3" class="grid-cell grid-cell5-3"></div>
+            <div data-x="5" data-y="4" class="grid-cell grid-cell5-4"></div>
+            <div data-x="5" data-y="5" class="grid-cell grid-cell5-5"></div>
+            <div data-x="5" data-y="6" class="grid-cell grid-cell5-6"></div>
+            <div data-x="5" data-y="7" class="grid-cell grid-cell5-7"></div>
+            <div data-x="5" data-y="8" class="grid-cell grid-cell5-8"></div>
+            <div data-x="5" data-y="9" class="grid-cell grid-cell5-9"></div>
+            <div data-x="6" data-y="0" class="grid-cell grid-cell6-0"></div>
+            <div data-x="6" data-y="1" class="grid-cell grid-cell6-1"></div>
+            <div data-x="6" data-y="2" class="grid-cell grid-cell6-2"></div>
+            <div data-x="6" data-y="3" class="grid-cell grid-cell6-3"></div>
+            <div data-x="6" data-y="4" class="grid-cell grid-cell6-4"></div>
+            <div data-x="6" data-y="5" class="grid-cell grid-cell6-5"></div>
+            <div data-x="6" data-y="6" class="grid-cell grid-cell6-6"></div>
+            <div data-x="6" data-y="7" class="grid-cell grid-cell6-7"></div>
+            <div data-x="6" data-y="8" class="grid-cell grid-cell6-8"></div>
+            <div data-x="6" data-y="9" class="grid-cell grid-cell6-9"></div>
+            <div data-x="7" data-y="0" class="grid-cell grid-cell7-0"></div>
+            <div data-x="7" data-y="1" class="grid-cell grid-cell7-1"></div>
+            <div data-x="7" data-y="2" class="grid-cell grid-cell7-2"></div>
+            <div data-x="7" data-y="3" class="grid-cell grid-cell7-3"></div>
+            <div data-x="7" data-y="4" class="grid-cell grid-cell7-4"></div>
+            <div data-x="7" data-y="5" class="grid-cell grid-cell7-5"></div>
+            <div data-x="7" data-y="6" class="grid-cell grid-cell7-6"></div>
+            <div data-x="7" data-y="7" class="grid-cell grid-cell7-7"></div>
+            <div data-x="7" data-y="8" class="grid-cell grid-cell7-8"></div>
+            <div data-x="7" data-y="9" class="grid-cell grid-cell7-9"></div>
+            <div data-x="8" data-y="0" class="grid-cell grid-cell8-0"></div>
+            <div data-x="8" data-y="1" class="grid-cell grid-cell8-1"></div>
+            <div data-x="8" data-y="2" class="grid-cell grid-cell8-2"></div>
+            <div data-x="8" data-y="3" class="grid-cell grid-cell8-3"></div>
+            <div data-x="8" data-y="4" class="grid-cell grid-cell8-4"></div>
+            <div data-x="8" data-y="5" class="grid-cell grid-cell8-5"></div>
+            <div data-x="8" data-y="6" class="grid-cell grid-cell8-6"></div>
+            <div data-x="8" data-y="7" class="grid-cell grid-cell8-7"></div>
+            <div data-x="8" data-y="8" class="grid-cell grid-cell8-8"></div>
+            <div data-x="8" data-y="9" class="grid-cell grid-cell8-9"></div>
+            <div data-x="9" data-y="0" class="grid-cell grid-cell9-0"></div>
+            <div data-x="9" data-y="1" class="grid-cell grid-cell9-1"></div>
+            <div data-x="9" data-y="2" class="grid-cell grid-cell9-2"></div>
+            <div data-x="9" data-y="3" class="grid-cell grid-cell9-3"></div>
+            <div data-x="9" data-y="4" class="grid-cell grid-cell9-4"></div>
+            <div data-x="9" data-y="5" class="grid-cell grid-cell9-5"></div>
+            <div data-x="9" data-y="6" class="grid-cell grid-cell9-6"></div>
+            <div data-x="9" data-y="7" class="grid-cell grid-cell9-7"></div>
+            <div data-x="9" data-y="8" class="grid-cell grid-cell9-8"></div>
+            <div data-x="9" data-y="9" class="grid-cell grid-cell9-9"></div>
+          </div>
+        </div>
+
+        <div class="ships">
+          <div class="ship destroyer" draggable="true" data-size="2"></div>
+          <div class="ship submarine" draggable="true" data-size="3"></div>
+          <div class="ship cruiser" draggable="true" data-size="3"></div>
+          <div class="ship battleship" draggable="true" data-size="4"></div>
+          <div class="ship carrier" draggable="true" data-size="5"></div>
+        </div>
+      </div>
     </div>
 
     <script src="script.js"></script>
-</body>
+  </body>
 </html>
