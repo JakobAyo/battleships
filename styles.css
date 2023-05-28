@@ -1,386 +1,374 @@
 :root {
-    --dark-blue-color: #29486b;
-    --dark-grid-color: #27496D;
-    --dark-cell-color: #3173B0;
-    --light-grid-color: #0C7B93;
-    --light-cell-color: #1DA7CA;
-    --hit-ship-color: #B32C2C;
+  --dark-blue-color: #29486b;
+  --dark-grid-color: #27496d;
+  --dark-cell-color: #3173b0;
+  --light-grid-color: #0c7b93;
+  --light-cell-color: #1da7ca;
+  --hit-ship-color: #b32c2c;
 }
 
 * {
-    margin: 0;
-    padding: 0;
-    user-select: none;
-    -moz-user-select: none;
-    -khtml-user-select: none;
-    -webkit-user-select: none;
-    -o-user-select: none;
+  margin: 0;
+  padding: 0;
+  user-select: none;
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -o-user-select: none;
 }
 
-html, body {
-	width: 100%;
-	background-color: #ddd;
-    font-size: 12px;
+html,
+body {
+  width: 100%;
+  background-color: #ddd;
+  font-size: 12px;
 }
-h1{
-	font-family: 'Raleways', sans-serif;
-	color: var(--dark-blue-color);
-    margin: 1em 0 1em;
-    text-align: center;
-    font-size: 3rem;
+h1 {
+  font-family: "Raleways", sans-serif;
+  color: var(--dark-blue-color);
+  margin: 1em 0 1em;
+  text-align: center;
+  font-size: 3rem;
 
-    font-weight: 900;
-    line-height: 120%;
-}
-
-h2, span{
-    position: relative;
-    font-family: 'Raleway', sans-serif;
-    color: var(--dark-blue-color);
-    text-align: center;
-    font-size: 2rem;
-    margin-top: 2rem;
+  font-weight: 900;
+  line-height: 120%;
 }
 
-.game-won{
-    display: none;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 1;
+h2,
+span {
+  position: relative;
+  font-family: "Raleway", sans-serif;
+  color: var(--dark-blue-color);
+  text-align: center;
+  font-size: 2rem;
+  margin-top: 2rem;
 }
 
-.winner-container{
-    position: absolute;
-    background-color: white;
-    width: 50%;
-    height: 50%;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    border-radius: 4rem;
+.game-won {
+  display: none;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+}
+
+.winner-container {
+  position: absolute;
+  background-color: white;
+  width: 50%;
+  height: 50%;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 4rem;
 }
 
 .winner-text {
-    font-size: 3rem;
-    position: absolute;
-    left: 50%;
-    top: 35%;
-    transform: translate(-50%, -50%);
+  font-size: 3rem;
+  position: absolute;
+  left: 50%;
+  top: 35%;
+  transform: translate(-50%, -50%);
 }
 
 #restart-button {
-    position: absolute;
-    left: 50%;
-    top: 60%;
-    transform: translate(-50%, -50%);
+  position: absolute;
+  left: 50%;
+  top: 60%;
+  transform: translate(-50%, -50%);
 }
 
 .game-container {
-    display: flex;
-    flex-wrap: wrap;
-    padding-bottom: 2.5rem;
-    justify-content: center;
+  display: flex;
+  flex-wrap: wrap;
+  padding-bottom: 2.5rem;
+  justify-content: center;
 }
 
 .grid-container {
-    height: 50rem;
-    margin: 0 14.4rem;
+  height: 50rem;
+  margin: 0 14.4rem;
 }
 
 /* Grid Properties */
 .grid {
-    position: relative;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 
-    border-radius: 1.4rem;
-    padding: .2rem;
-    padding-left: .27rem;
+  border-radius: 1.4rem;
+  padding: 0.2rem;
+  padding-left: 0.27rem;
 
-    display: grid;
-    grid-template-rows: repeat(10 ,auto);
-    grid-template-columns: repeat(10, auto);
+  display: grid;
+  grid-template-rows: repeat(10, auto);
+  grid-template-columns: repeat(10, auto);
 
-    width: 40rem;
-    height: 40rem;
+  width: 40rem;
+  height: 40rem;
 }
 
-    .grid.human-player {
-        background-color: var(--light-grid-color);
-    }
+.grid.human-player {
+  background-color: var(--light-grid-color);
+}
 
-    .grid.cpu-player {
-        background-color: var(--dark-grid-color);
-    }
+.grid.cpu-player {
+  background-color: var(--dark-grid-color);
+}
 
-    .grid.cpu-player > * {
-        background-color: var(--dark-cell-color);
-    }
+.grid.cpu-player > * {
+  background-color: var(--dark-cell-color);
+}
 
-    .grid.human-player > * {
-        background-color: var(--light-cell-color);
-    }
-
+.grid.human-player > * {
+  background-color: var(--light-cell-color);
+}
 
 .grid-cell {
-    margin: 0.125rem;
-    border-radius: 0.9rem;
-    filter: drop-shadow(0 .25rem .25rem rgba(0, 0, 0, 0.4));
-    width: 3.5em;
-    height: 3.5em;
+  margin: 0.125rem;
+  border-radius: 0.9rem;
+  filter: drop-shadow(0 0.25rem 0.25rem rgba(0, 0, 0, 0.4));
+  width: 3.5em;
+  height: 3.5em;
 }
 
-    .human-player .miss, .human-player .ship-cell {
-        background-color: var(--light-grid-color);
-        filter: none;
-    }
+.human-player .miss,
+.human-player .ship-cell {
+  background-color: var(--light-grid-color);
+  filter: none;
+}
 
-    .human-player .hit {
-        background-color: red;
-        filter: none;
-    }
+.human-player .hit {
+  background-color: red;
+  filter: none;
+}
 
-    .human-player .sunk{
-        background-color: var(--dark-grid-color);
-        fill: none;
-    }
+.human-player .sunk {
+  background-color: var(--dark-grid-color);
+  fill: none;
+}
 
-    .cpu-player .miss{
-        background-color: var(--dark-grid-color);
-        filter: none;
-        pointer-events: none;
-    }
+.cpu-player .miss {
+  background-color: var(--dark-grid-color);
+  filter: none;
+  pointer-events: none;
+}
 
-    .cpu-player .hit{
-        background-color: var(--hit-ship-color);
-        pointer-events: none;
-    }
+.cpu-player .hit {
+  background-color: var(--hit-ship-color);
+  pointer-events: none;
+}
 
-    .cpu-player .sunk{
-        background-color: var(--dark-grid-color);
-        pointer-events: none;
-        filter: none;
-    }
+.cpu-player .sunk {
+  background-color: var(--dark-grid-color);
+  pointer-events: none;
+  filter: none;
+}
 
-    .cpu-player .grid-cell:hover {
-        background-color: var(--light-cell-color);
-        transform: scale(1.15);
-    }
+.cpu-player .grid-cell:hover {
+  background-color: var(--light-cell-color);
+  transform: scale(1.15);
+}
 
-    .cpu-player .grid-cell:hover, .cpu-player:hover {
-        cursor: url('images/target1.png') 24 24, crosshair;
-    }
-
+.cpu-player .grid-cell:hover,
+.cpu-player:hover {
+  cursor: url("images/target1.png") 24 24, crosshair;
+}
 
 /* Ship properties */
 .ships {
-    position: relative;
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-    width: 80rem;
-    margin: 5rem 40rem 0;
+  position: relative;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  width: 80rem;
+  margin: 5rem 40rem 0;
 }
-    .vertical {
-        transform: rotate(90deg);
-    }
-    .horizontal{
-        transform: rotate(360deg);
-    }
+.vertical {
+  transform: rotate(90deg);
+}
+.horizontal {
+  transform: rotate(360deg);
+}
 
-    .ships > div {
-        border-radius: 0.9rem;
-    }
+.ships > div {
+  border-radius: 0.9rem;
+}
 
-    .ships > div img {
-        width: 100%;
-        height: 100%;
-    }
+.ships > div img {
+  width: 100%;
+  height: 100%;
+}
 
-    .ship-cell{
-        display: inline-block;
-        width: 3.5rem;
-        height: 3.5rem;
-    }
+.ship-cell {
+  display: inline-block;
+  width: 3.5rem;
+  height: 3.5rem;
+}
 
-    .ship{
-        --width: 3.5rem;
-        --height: 3.5rem;
+.ship {
+  --width: 3.5rem;
+  --height: 3.5rem;
+}
 
-    }
+.destroyer {
+  background-image: url(images/destroyer.png);
+  background-size: 100%;
+  width: calc(var(--width) * 2 + 0.125rem);
+  height: 3.5rem;
 
+  transform-origin: 24%;
+}
 
-    .destroyer {
-        background-image: url(images/destroyer.png);
-        background-size: 100%;
-        width: calc(var(--width)* 2 + 0.125rem);
-        height: 3.5rem;
+.submarine {
+  background-image: url(images/submarine.png);
+  background-size: 100%;
+  width: calc(var(--width) * 3 + 0.125rem * 2);
+  height: 3.5rem;
 
-        transform-origin: 24%;
-    }
-       
-    .submarine {
-        background-image: url(images/submarine.png);
-        background-size: 100%;
-        width: calc(var(--width) * 3 + 0.125rem * 2);
-        height: 3.5rem;
+  transform-origin: 15%;
+}
 
-        transform-origin: 15%;
-    }
+.cruiser {
+  background-image: url(images/cruiser.png);
+  background-size: 100%;
+  width: calc(var(--width) * 3 + 0.125rem * 2);
+  height: 3.5rem;
 
+  transform-origin: 15%;
+}
 
-    .cruiser {
-        background-image: url(images/cruiser.png);
-        background-size: 100%;
-        width: calc(var(--width) * 3 + 0.125rem * 2);
-        height: 3.5rem;
-        
-        transform-origin: 15%;
-    }
+.battleship {
+  background-image: url(images/battleship.png);
+  background-size: 100%;
+  width: calc(var(--width) * 4 + 0.125rem * 3);
+  height: 3.3rem;
 
-    .battleship {
-        background-image: url(images/battleship.png);
-        background-size: 100%;
-        width: calc(var(--width) * 4 + 0.125rem * 3) ;
-        height: 3.3rem;
+  transform-origin: 11%;
+}
 
-        transform-origin: 11%;
-    }
+.carrier {
+  background-image: url(images/carrier.png);
+  background-size: 100%;
+  width: calc(var(--width) * 5 + 0.125rem * 4);
+  height: 3.3rem;
 
-    .carrier {
-        background-image: url(images/carrier.png);
-        background-size: 100%;
-        width: calc(var(--width) * 5 + 0.125rem * 4);
-        height: 3.3rem;
-
-        transform-origin: 8.5%;
-    }
+  transform-origin: 8.5%;
+}
 
 .buttons {
-    position: relative;
-    width: 20rem;
-    margin: 20rem 0 15rem 0;
+  position: relative;
+  width: 20rem;
+  margin: 20rem 0 15rem 0;
 }
 
 button {
-    font-family: 'Raleway', sans-serif;
-    font-size: 2rem;
-    text-shadow: 0.0625rem 0.25rem .375rem rgba(0, 0, 0, 0.44);
-    position: relative;
-    border: none;
-    color: white;
-    border-radius: 2rem;
-    height: 6rem;
-    width: 20rem;
-    background-color: var(--light-cell-color);
-    cursor: pointer;
-
+  font-family: "Raleway", sans-serif;
+  font-size: 2rem;
+  text-shadow: 0.0625rem 0.25rem 0.375rem rgba(0, 0, 0, 0.44);
+  position: relative;
+  border: none;
+  color: white;
+  border-radius: 2rem;
+  height: 6rem;
+  width: 20rem;
+  background-color: var(--light-cell-color);
+  cursor: pointer;
 }
 
-    #start-button{
-        margin: 1rem 0 1rem;
-    }
-    #rotate-button{
-        margin: 1rem 0 1rem;
-        background-color: var(--dark-cell-color);
-    }
-
-
-    
+#start-button {
+  margin: 1rem 0 1rem;
+}
+#rotate-button {
+  margin: 1rem 0 1rem;
+  background-color: var(--dark-cell-color);
+}
 
 /* Animations */
 @media (max-width: 1903px) {
-    html, body {
-        font-size: 8px;
-    }
+  html,
+  body {
+    font-size: 8px;
+  }
 }
 
-
 @media (max-width: 1330px) {
-    html,body {
-        font-size: 6px;
-    }
+  html,
+  body {
+    font-size: 6px;
+  }
 }
 
 @media (max-width: 952px) {
-    html, body {
-        font-size: 6px;
-    }
+  html,
+  body {
+    font-size: 6px;
+  }
 
-    .game-container {
-        display: -webkit-box;
-        display: -moz-box;
-        display: -ms-flexbox;
-        display: -webkit-flex;
-        display: flex;
-        -webkit-box-orient: vertical;
-        -moz-box-orient: vertical;
-        -webkit-flex-direction: column;
-        -ms-flex-direction: column;
-        flex-direction: column;
-    }
+  .game-container {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -moz-box-orient: vertical;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+  }
 
-    .grid-container.human-player {
-        -webkit-box-ordinal-group: 3;
-        -moz-box-ordinal-group: 3;
-        -ms-flex-order: 3;
-        -webkit-order: 3;
-        order: 3;
-    }
+  .grid-container.human-player {
+    -webkit-box-ordinal-group: 3;
+    -moz-box-ordinal-group: 3;
+    -ms-flex-order: 3;
+    -webkit-order: 3;
+    order: 3;
+  }
 
-    .buttons {
-        -webkit-box-ordinal-group: 2;
-        -moz-box-ordinal-group: 2;
-        -ms-flex-order: 2;
-        -webkit-order: 2;
-        order: 2;
-        margin: 2rem 70rem 0;
-    }
+  .buttons {
+    -webkit-box-ordinal-group: 2;
+    -moz-box-ordinal-group: 2;
+    -ms-flex-order: 2;
+    -webkit-order: 2;
+    order: 2;
+    margin: 2rem 70rem 0;
+  }
 
-    .grid-container.cpu-player {
-        -webkit-box-ordinal-group: 1;
-        -moz-box-ordinal-group: 1;
-        -ms-flex-order: 1;
-        -webkit-order: 1;
-        order: 1;
-    }
-    .ships {
-        -webkit-box-ordinal-group: 4;
-        -moz-box-ordinal-group: 4;
-        -ms-flex-order: 4;
-        -webkit-order: 4;
-        order: 4;
-        justify-content: center;
-    }
-    
-
-
+  .grid-container.cpu-player {
+    -webkit-box-ordinal-group: 1;
+    -moz-box-ordinal-group: 1;
+    -ms-flex-order: 1;
+    -webkit-order: 1;
+    order: 1;
+  }
+  .ships {
+    -webkit-box-ordinal-group: 4;
+    -moz-box-ordinal-group: 4;
+    -ms-flex-order: 4;
+    -webkit-order: 4;
+    order: 4;
+    justify-content: center;
+  }
 }
-
 
 @media (max-width: 646px) {
-    html, body {
-        font-size: 3px;
-        min-width: 646px;
-    }
+  html,
+  body {
+    font-size: 3px;
+    min-width: 646px;
+  }
 
-    .buttons{
-        margin: 0 97rem 0;
-    }
+  .buttons {
+    margin: 0 97rem 0;
+  }
 
-    .ships {
-        margin: 3rem 65rem 0;
-    }
+  .ships {
+    margin: 3rem 65rem 0;
+  }
 }
-
-
-
-
-
-
