@@ -84,11 +84,12 @@ h2, span{
     display: flex;
     flex-wrap: wrap;
     padding-bottom: 2.5rem;
+    justify-content: center;
 }
 
 .grid-container {
     height: 50rem;
-    margin: 0 14rem;
+    margin: 0 14.4rem;
 }
 
 /* Grid Properties */
@@ -256,7 +257,7 @@ h2, span{
         background-image: url(images/carrier.png);
         background-size: 100%;
         width: calc(var(--width) * 5 + 0.125rem * 4);
-        height: 3.5rem;
+        height: 3.3rem;
 
         transform-origin: 8.5%;
     }
@@ -294,49 +295,24 @@ button {
     
 
 /* Animations */
+@media (max-width: 1903px) {
+    html, body {
+        font-size: 8px;
+    }
+}
+
 
 @media (max-width: 1330px) {
     html,body {
-        font-size: 12px;
+        font-size: 6px;
     }
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 952px) {
     html, body {
-        font-size: 10px;
-    }
-    
-    .game-container {
-        display: flex;
-        justify-content: space-around;
-        align-content: center;
-        flex-wrap: wrap;
+        font-size: 6px;
     }
 
-    .grid {
-        width: 40rem;
-        height: 40rem;
-    }
-
-        .grid-cell {
-            height: 3.5rem;
-            width: 3.5rem;
-        }
-
-
-
-    .ships {
-        margin-top: 4rem;
-    }
-}
-
-@media (max-width: 810px) {
-    html, body {
-        font-size: 8px;
-    } 
-}
-
-@media (max-width: 646px) {
     .game-container {
         display: -webkit-box;
         display: -moz-box;
@@ -351,11 +327,20 @@ button {
     }
 
     .grid-container.human-player {
+        -webkit-box-ordinal-group: 3;
+        -moz-box-ordinal-group: 3;
+        -ms-flex-order: 3;
+        -webkit-order: 3;
+        order: 3;
+    }
+
+    .buttons {
         -webkit-box-ordinal-group: 2;
         -moz-box-ordinal-group: 2;
         -ms-flex-order: 2;
         -webkit-order: 2;
         order: 2;
+        margin: 2rem 70rem 0;
     }
 
     .grid-container.cpu-player {
@@ -366,12 +351,31 @@ button {
         order: 1;
     }
     .ships {
-        -webkit-box-ordinal-group: 3;
-        -moz-box-ordinal-group: 3;
-        -ms-flex-order: 3;
-        -webkit-order: 3;
-        order: 3;
+        -webkit-box-ordinal-group: 4;
+        -moz-box-ordinal-group: 4;
+        -ms-flex-order: 4;
+        -webkit-order: 4;
+        order: 4;
         justify-content: center;
+    }
+    
+
+
+}
+
+
+@media (max-width: 646px) {
+    html, body {
+        font-size: 3px;
+        min-width: 646px;
+    }
+
+    .buttons{
+        margin: 0 97rem 0;
+    }
+
+    .ships {
+        margin: 3rem 65rem 0;
     }
 }
 
