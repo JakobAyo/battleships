@@ -62,7 +62,7 @@ const MainGame = {
     };
 
     this.hasWonGame = function (player) {
-      if (this.shotsHit >= this.TOTAL_HITS) {
+      if (this.shotsHit >= MainGame.TOTAL_HITS) {
         this.gameWon = true;
 
         let gameWon = document.querySelector(".game-won");
@@ -322,7 +322,7 @@ const MainGame = {
     };
   },
 
-  Fleet: function (player) {
+  Fleet: function (playerGrid, player) {
     this.numShips = MainGame.AVAILABLE_SHIPS.length;
     this.playerGrid = playerGrid;
     this.player = player;
@@ -330,7 +330,7 @@ const MainGame = {
 
     this.init = function () {
       for (let i = 0; i < this.numShips; i++) {
-        this.allShips.push(new Ship(this.AVAILABLE_SHIPS[i]));
+        this.allShips.push(new MainGame.Ship(MainGame.AVAILABLE_SHIPS[i]));
       }
     };
 
@@ -359,19 +359,19 @@ const MainGame = {
     this.type = type;
 
     switch (type) {
-      case this.AVAILABLE_SHIPS[0]:
+      case MainGame.AVAILABLE_SHIPS[0]:
         this.shipLength = 2;
         break;
-      case this.AVAILABLE_SHIPS[1]:
+      case MainGame.AVAILABLE_SHIPS[1]:
         this.shipLength = 3;
         break;
-      case this.AVAILABLE_SHIPS[2]:
+      case MainGame.AVAILABLE_SHIPS[2]:
         this.shipLength = 3;
         break;
-      case this.AVAILABLE_SHIPS[3]:
+      case MainGame.AVAILABLE_SHIPS[3]:
         this.shipLength = 4;
         break;
-      case this.AVAILABLE_SHIPS[4]:
+      case MainGame.AVAILABLE_SHIPS[4]:
         this.shipLength = 5;
         break;
       default:
@@ -631,7 +631,7 @@ humanPlayerGridCells.forEach(function (cell) {
 // Ship Event Listeners
 ships.forEach(function (ship) {
   ship.addEventListener("drag", function (e) {
-    shipSize = Ship.prototype.dragging(e);
+    shipSize = MainGame.Ship.dragging(e);
     draggedShip = e.target;
   });
 });
