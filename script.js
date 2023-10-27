@@ -27,90 +27,93 @@ CONST.GRID_SIZE = 10;
 
 CONST.TOTAL_HITS = 17;
 
-const rotateButton = document.getElementById("rotate-button");
-const startButton = document.getElementById("start-button");
-const restartButton = document.getElementById("restart-button");
-let humanPlayerGridCells = document.querySelectorAll(
-  ".human-player .grid-cell"
-);
-let cpuPlayerGridCells = document.querySelectorAll(".cpu-player .grid-cell");
-let ships = document.querySelectorAll(".ship");
+document.addEventListener("DOMContentLoaded", function () {
+  const rotateButton = document.getElementById("rotate-button");
+  const startButton = document.getElementById("start-button");
+  const restartButton = document.getElementById("restart-button");
+  let humanPlayerGridCells = document.querySelectorAll(
+    ".human-player .grid-cell"
+  );
+  let cpuPlayerGridCells = document.querySelectorAll(".cpu-player .grid-cell");
+  let ships = document.querySelectorAll(".ship");
+
+  // Buttons Event Listeners
+  rotateButton.addEventListener("click", function (e) {
+    mainGame.rotateShip(e);
+  });
+
+  startButton.addEventListener("click", function () {
+    mainGame.startGame();
+  });
+
+  restartButton.addEventListener("click", function () {
+    window.location.reload();
+    return false;
+  });
+
+  // Cell Event Listeners
+  cpuPlayerGridCells.forEach(function (cell) {
+    cell.addEventListener("click", function (e) {
+      if (mainGame.gameStartAllowed && mainGame.humanTurn) {
+        let x = parseInt(e.target.getAttribute("data-x"), 10);
+        let y = parseInt(e.target.getAttribute("data-y"), 10);
+        mainGame.shoot(x, y, CONST.COPMUTER_PLAYER);
+        mainGame.humanTurn = false;
+        mainGame.cycleTurns();
+      }
+    });
+  });
+
+  humanPlayerGridCells.forEach(function (cell) {
+    cell.addEventListener("dragstart", function (e) {
+      e.preventDefault();
+    });
+    cell.addEventListener("dragenter", function (e) {
+      e.preventDefault();
+      mainGame.humanGrid.dragShipOver(e);
+    });
+    cell.addEventListener("dragleave", function (e) {
+      e.preventDefault();
+      mainGame.humanGrid.dragShipOver(e);
+    });
+    cell.addEventListener("dragover", function (e) {
+      e.preventDefault();
+    });
+    cell.addEventListener("drop", function (e) {
+      console.log(draggedShip);
+      e.preventDefault();
+      let direction = parseInt(rotateButton.getAttribute("data-direction"), 10);
+      if (direction === 1) {
+        draggedShip.classList.add("vertical");
+      } else {
+        draggedShip.classList.add("horizontal");
+      }
+      if (mainGame.humanGrid.isShipPlaceable(xPosition, yPosition, direction)) {
+        cell.appendChild(draggedShip);
+        mainGame.humanGrid.placeShip(xPosition, yPosition, direction, shipSize);
+        mainGame.humanFleet.allShips.forEach((ship) => {
+          if (ship.type === draggedShip.classList.item(1)) {
+            ship.coordinates(xPosition, yPosition, direction);
+          }
+        });
+      }
+    });
+  });
+
+  // Ship Event Listeners
+  ships.forEach(function (ship) {
+    ship.addEventListener("drag", function (e) {
+      shipSize = Ship.prototype.dragging(e);
+      draggedShip = e.target;
+    });
+  });
+});
 
 // Global Variables for Eventlisteners
 let draggedShip;
 let shipSize;
 let xPosition;
 let yPosition;
-// Buttons Event Listeners
-rotateButton.addEventListener("click", function (e) {
-  mainGame.rotateShip(e);
-});
-
-startButton.addEventListener("click", function () {
-  mainGame.startGame();
-});
-
-restartButton.addEventListener("click", function () {
-  window.location.reload();
-  return false;
-});
-
-// Cell Event Listeners
-cpuPlayerGridCells.forEach(function (cell) {
-  cell.addEventListener("click", function (e) {
-    if (mainGame.gameStartAllowed && mainGame.humanTurn) {
-      let x = parseInt(e.target.getAttribute("data-x"), 10);
-      let y = parseInt(e.target.getAttribute("data-y"), 10);
-      mainGame.shoot(x, y, CONST.COPMUTER_PLAYER);
-      mainGame.humanTurn = false;
-      mainGame.cycleTurns();
-    }
-  });
-});
-
-humanPlayerGridCells.forEach(function (cell) {
-  cell.addEventListener("dragstart", function (e) {
-    e.preventDefault();
-  });
-  cell.addEventListener("dragenter", function (e) {
-    e.preventDefault();
-    mainGame.humanGrid.dragShipOver(e);
-  });
-  cell.addEventListener("dragleave", function (e) {
-    e.preventDefault();
-    mainGame.humanGrid.dragShipOver(e);
-  });
-  cell.addEventListener("dragover", function (e) {
-    e.preventDefault();
-  });
-  cell.addEventListener("drop", function (e) {
-    console.log(draggedShip);
-    e.preventDefault();
-    let direction = parseInt(rotateButton.getAttribute("data-direction"), 10);
-    if (direction === 1) {
-      draggedShip.classList.add("vertical");
-    } else {
-      draggedShip.classList.add("horizontal");
-    }
-    if (mainGame.humanGrid.isShipPlaceable(xPosition, yPosition, direction)) {
-      cell.appendChild(draggedShip);
-      mainGame.humanGrid.placeShip(xPosition, yPosition, direction, shipSize);
-      mainGame.humanFleet.allShips.forEach((ship) => {
-        if (ship.type === draggedShip.classList.item(1)) {
-          ship.coordinates(xPosition, yPosition, direction);
-        }
-      });
-    }
-  });
-});
-
-// Ship Event Listeners
-ships.forEach(function (ship) {
-  ship.addEventListener("drag", function (e) {
-    shipSize = Ship.prototype.dragging(e);
-    draggedShip = e.target;
-  });
-});
 
 function Stats() {
   this.shotsTaken = 0;
@@ -631,3 +634,5 @@ function generateRandomNumber(min, max) {
 }
 
 var mainGame = new Game();
+
+module.exports = Ship;
