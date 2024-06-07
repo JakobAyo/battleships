@@ -1,4 +1,4 @@
 # battleships
 Battleship Game against AI
 
-Playable at jaco.tiiny.site
+<a href="https://jaco.tiiny.site/">Click here to play</a>
